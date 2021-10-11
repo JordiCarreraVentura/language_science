@@ -3,16 +3,6 @@ import math
 import random
 import re
 
-
-# First, let's define vectorizers for all the options we have discussed:
-# CountVectorizer, TfidfVectorizer, DictionaryVectorizer.
-# 
-# I'm not using scikit-learn's versions because I prefer to implement some
-# custom functionality directly from scratch (scikit-learn's vectorizers could
-# also be extended accordingly, though), notice the `group_by_class` parameter.
-
-
-
 from Dataset import ads
 
 from Vectorizer import *
@@ -20,15 +10,9 @@ from Vectorizer import *
 
 
 
+
 if __name__ == '__main__':
 
-
-    # Next, we define our test dataset, made up of
-    # - three categories (cell-phones, books, nutrition)
-    # - with a few documents each, and with some relevant key words
-    #   (e.g. "books", "samsung", etc.)
-    
-    # Next, let's define the different vectorization methods we want to compare:
     vectorizers = [
         CountVectorizer(),
         DictionaryVectorizer(),
