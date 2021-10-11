@@ -8,6 +8,7 @@ from Dataset import ads
 from Vectorizer import *
 
 
+random.seed(3)
 
 
 
