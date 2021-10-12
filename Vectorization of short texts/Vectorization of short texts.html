@@ -14328,18 +14328,18 @@ a.anchor-link {
 <li>which is then multiplied times that word's frequency over all the documents and, more precisely, by its <strong>inverse</strong> frequency over all the documents (the IDF part of the TFIDF equation).</li>
 </ol>
 <p><strong>Why is the <em>inverse frequency</em> used?</strong></p>
-<p>If a word appears in <strong>every</strong> document, it is too general and it is not informative, that is, it is not meaningfully associated with any particular document. This means that, if we used that word to try to find a document, we would end up with the whole set of documents! Put another way, those words contribute little to a document search and, in tasks where the goal is to filter a large initial search space down to a few relevant docments, those words will have no effect, proving to be redundant at best, and confounders in the worst case scenario.</p>
+<p>If a word appears in <strong>every</strong> document, it is too general and it is not informative, that is, it is not meaningfully associated with any particular document. This means that, if we used that word to try to find a document, we would end up with the whole set of documents! Put another way, those words contribute little to document search and, in tasks where the goal is to filter a large initial search space down to a few relevant documents, those words will have no effect, proving to be redundant at best, and confounders in the worst case scenario.</p>
 <p>That is why, in the context of Document Retrieval (where BoW representations were first introduced, and where the goal is to search for specific documents over a database), it is best to simply filter out these words. In this paradigm, the best way to find any document (and to represent the meaning of that document, since meaning and searchable content are taken to be the same) is to find the words</p>
 <ol>
 <li>with the highest frequency in the document (TF) (since these terms can be expected to denote what that document is about: a text about politics should contain <strong>many</strong> occurrences of words like <em>government</em>, <em>president</em> or <em>country</em>) and </li>
-<li>the lowest frequency over all documents (IDF) (since such words would denote what only a few documents are about, and those are the document we need): if a word appears in a single document, and somebody searches for that word, there is no doubt as to what document they are looking for or, at least, what is the only document that can be returned as a candidate answer.</li>
+<li>the lowest frequency over all documents (IDF) (these words will denote what only a few documents are about, and those are the documents we need). If a word appears in a single document, and somebody searches for that word, there is no doubt as to what document they are looking for or, at least, what is the only document that can be returned as a candidate answer.</li>
 </ol>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="2.1.4.-TfidfVectorizer-with-inverse-class-frequency-(instead-of-inverse-document-frequency)">2.1.4. <code>TfidfVectorizer</code> with inverse class frequency (instead of inverse document frequency)<a class="anchor-link" href="#2.1.4.-TfidfVectorizer-with-inverse-class-frequency-(instead-of-inverse-document-frequency)">&#182;</a></h4><p>Finally, the <code>TfidfVectorizer</code> is almost the same as the <code>TfidfVectorizer</code>, with a major difference:</p>
+<h4 id="2.1.4.-TfidfVectorizer-with-inverse-class-frequency-(instead-of-inverse-document-frequency)">2.1.4. <code>TfidfVectorizer</code> with inverse class frequency (instead of inverse document frequency)<a class="anchor-link" href="#2.1.4.-TfidfVectorizer-with-inverse-class-frequency-(instead-of-inverse-document-frequency)">&#182;</a></h4><p>Finally, the <code>TfidfVectorizer</code> with class frequency is almost the same as the <code>TfidfVectorizer</code> with one major difference:</p>
 <ul>
 <li>it also uses the TF term of the TFIDF equation as defined above</li>
 <li>but it modifies the IDF term so that it is computed over classes of documents instead of all the documents.</li>
@@ -14362,7 +14362,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="3.-Working-hypothesis">3. Working hypothesis<a class="anchor-link" href="#3.-Working-hypothesis">&#182;</a></h2><p>Based on these descriptions, we can already venture some hypotheses:</p>
+<h2 id="3.-Working-hypotheses">3. Working hypotheses<a class="anchor-link" href="#3.-Working-hypotheses">&#182;</a></h2><p>Based on these descriptions, we can already venture some hypotheses:</p>
 <ol>
 <li><code>CountVectorizer</code> represents essentially the same information as the <code>DictionaryVectorizer</code> but with raw frequency counts instead of a categorial binary labeling. If we are working with long documents containing many mentions of the same words, then the values in <code>CountVectorizer</code>'s vector would be much larger than the values in <code>DictionaryVectorizer</code>'s vector, since the latter are effectively capped to 1 no matter how many times each word appears in the text. However, if we are working with short texts, which will tend to contain only one occurrence of each word (except for prepositions, determiners, and similar function words with little lexical meaning), frequency becomes irrelevant, as it will always be either 0 or 1, becoming essentially binary as well, the same set of values used by the <code>DictionaryVectorizer</code>. Therefore, our hypothesis is that, with most words having the same frequency in short texts, <strong>a short text's</strong> <code>DictionaryVectorizer</code> <strong>-encoded vector will look very similar, if not identical, to a</strong> <code>CountVectorizer</code><strong>-encoded vector</strong> (which is definitely <strong>not</strong> true for long documents).</li>
 <li><p>The two implementations of <code>TfidfVectorizer</code> are also very similar, with both using the same formula to calculate TFIDF, and with the only difference being what each of them takes as the "document", its unit of analysis for the IDF term, which can be either</p>
@@ -14391,7 +14391,7 @@ since, what we should realize penalize is the latter (because the fact that a wo
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">collections</span>
@@ -14416,7 +14416,7 @@ since, what we should realize penalize is the latter (because the fact that a wo
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[27]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -14436,14 +14436,14 @@ since, what we should realize penalize is the latter (because the fact that a wo
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[28]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">vectorizers</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">CountVectorizer</span><span class="p">(),</span>
     <span class="n">DictionaryVectorizer</span><span class="p">(),</span>
     <span class="n">TfidfVectorizer</span><span class="p">(),</span>
-    <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">group_by_class</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">group_by_class</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">]</span>
 </pre></div>
 
@@ -14461,7 +14461,7 @@ since, what we should realize penalize is the latter (because the fact that a wo
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">doc_ids__by__label</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
@@ -14501,7 +14501,7 @@ since, what we should realize penalize is the latter (because the fact that a wo
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit all the vectorizers on the same dataset</span>
@@ -14542,36 +14542,36 @@ since, what we should realize penalize is the latter (because the fact that a wo
 DOCUMENT LABEL: cell-phones
 
   VECTORIZER TYPE: CountVectorizer
-	weight=2.00	feature=&#34;vintage&#34;
-	weight=2.00	feature=&#34;cell&#34;
-	weight=2.00	feature=&#34;phone&#34;
 	weight=2.00	feature=&#34;flip&#34;
-	weight=1.00	feature=&#34;new&#34;
+	weight=2.00	feature=&#34;phone&#34;
+	weight=2.00	feature=&#34;cell&#34;
+	weight=2.00	feature=&#34;vintage&#34;
 	weight=1.00	feature=&#34;listing&#34;
+	weight=1.00	feature=&#34;new&#34;
 
   VECTORIZER TYPE: DictionaryVectorizer
-	weight=1.00	feature=&#34;new&#34;
-	weight=1.00	feature=&#34;vintage&#34;
-	weight=1.00	feature=&#34;cell&#34;
+	weight=1.00	feature=&#34;flip&#34;
 	weight=1.00	feature=&#34;phone&#34;
 	weight=1.00	feature=&#34;listing&#34;
-	weight=1.00	feature=&#34;flip&#34;
+	weight=1.00	feature=&#34;cell&#34;
+	weight=1.00	feature=&#34;new&#34;
+	weight=1.00	feature=&#34;vintage&#34;
 
   VECTORIZER TYPE: TfidfVectorizer
 	weight=2.83	feature=&#34;flip&#34;
-	weight=2.14	feature=&#34;vintage&#34;
-	weight=2.14	feature=&#34;cell&#34;
 	weight=2.14	feature=&#34;listing&#34;
+	weight=2.14	feature=&#34;cell&#34;
+	weight=2.14	feature=&#34;vintage&#34;
 	weight=1.45	feature=&#34;phone&#34;
 	weight=1.22	feature=&#34;new&#34;
 
   VECTORIZER TYPE: TfidfVectorizer
-	weight=1.10	feature=&#34;vintage&#34;
-	weight=1.10	feature=&#34;cell&#34;
-	weight=1.10	feature=&#34;phone&#34;
 	weight=1.10	feature=&#34;flip&#34;
-	weight=0.41	feature=&#34;new&#34;
+	weight=1.10	feature=&#34;phone&#34;
+	weight=1.10	feature=&#34;cell&#34;
+	weight=1.10	feature=&#34;vintage&#34;
 	weight=0.41	feature=&#34;listing&#34;
+	weight=0.41	feature=&#34;new&#34;
 
 
 
@@ -14580,32 +14580,32 @@ INPUT DOCUMENT: &#34;Kitchen Confidential by Anthony Bourdain FREE SHIPPING a pa
 DOCUMENT LABEL: books
 
   VECTORIZER TYPE: CountVectorizer
-	weight=1.00	feature=&#34;by&#34;
+	weight=1.00	feature=&#34;free&#34;
 	weight=1.00	feature=&#34;a&#34;
 	weight=1.00	feature=&#34;shipping&#34;
+	weight=1.00	feature=&#34;by&#34;
 	weight=1.00	feature=&#34;book&#34;
-	weight=1.00	feature=&#34;free&#34;
 
   VECTORIZER TYPE: DictionaryVectorizer
-	weight=1.00	feature=&#34;by&#34;
+	weight=1.00	feature=&#34;free&#34;
 	weight=1.00	feature=&#34;a&#34;
 	weight=1.00	feature=&#34;shipping&#34;
+	weight=1.00	feature=&#34;by&#34;
 	weight=1.00	feature=&#34;book&#34;
-	weight=1.00	feature=&#34;free&#34;
 
   VECTORIZER TYPE: TfidfVectorizer
-	weight=2.83	feature=&#34;by&#34;
+	weight=2.83	feature=&#34;free&#34;
 	weight=2.83	feature=&#34;a&#34;
 	weight=2.83	feature=&#34;shipping&#34;
-	weight=2.83	feature=&#34;free&#34;
+	weight=2.83	feature=&#34;by&#34;
 	weight=1.45	feature=&#34;book&#34;
 
   VECTORIZER TYPE: TfidfVectorizer
-	weight=1.10	feature=&#34;by&#34;
+	weight=1.10	feature=&#34;free&#34;
 	weight=1.10	feature=&#34;a&#34;
 	weight=1.10	feature=&#34;shipping&#34;
+	weight=1.10	feature=&#34;by&#34;
 	weight=1.10	feature=&#34;book&#34;
-	weight=1.10	feature=&#34;free&#34;
 
 
 

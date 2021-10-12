@@ -65,14 +65,14 @@ What is the TFIDF weight? [Here's](https://en.wikipedia.org/wiki/Tf–idf) the t
 
 **Why is the *inverse frequency* used?**
 
-If a word appears in **every** document, it is too general and it is not informative, that is, it is not meaningfully associated with any particular document. This means that, if we used that word to try to find a document, we would end up with the whole set of documents! Put another way, those words contribute little to a document search and, in tasks where the goal is to filter a large initial search space down to a few relevant docments, those words will have no effect, proving to be redundant at best, and confounders in the worst case scenario.
+If a word appears in **every** document, it is too general and it is not informative, that is, it is not meaningfully associated with any particular document. This means that, if we used that word to try to find a document, we would end up with the whole set of documents! Put another way, those words contribute little to document search and, in tasks where the goal is to filter a large initial search space down to a few relevant documents, those words will have no effect, proving to be redundant at best, and confounders in the worst case scenario.
 
 That is why, in the context of Document Retrieval (where BoW representations were first introduced, and where the goal is to search for specific documents over a database), it is best to simply filter out these words. In this paradigm, the best way to find any document (and to represent the meaning of that document, since meaning and searchable content are taken to be the same) is to find the words
 1. with the highest frequency in the document (TF) (since these terms can be expected to denote what that document is about: a text about politics should contain **many** occurrences of words like *government*, *president* or *country*) and 
-2. the lowest frequency over all documents (IDF) (since such words would denote what only a few documents are about, and those are the document we need): if a word appears in a single document, and somebody searches for that word, there is no doubt as to what document they are looking for or, at least, what is the only document that can be returned as a candidate answer.
+2. the lowest frequency over all documents (IDF) (these words will denote what only a few documents are about, and those are the documents we need). If a word appears in a single document, and somebody searches for that word, there is no doubt as to what document they are looking for or, at least, what is the only document that can be returned as a candidate answer.
 
 #### 2.1.4. `TfidfVectorizer` with inverse class frequency (instead of inverse document frequency)
-Finally, the `TfidfVectorizer` is almost the same as the `TfidfVectorizer`, with a major difference:
+Finally, the `TfidfVectorizer` with class frequency is almost the same as the `TfidfVectorizer` with one major difference:
 - it also uses the TF term of the TFIDF equation as defined above
 - but it modifies the IDF term so that it is computed over classes of documents instead of all the documents.
 
@@ -97,7 +97,7 @@ In its standard definition, TFIDF favors specificity at the expense of represent
 
 The modified class-level TFIDF, or TFICF for short, should provide a slightly better representation whenever the Y axis is available.
 
-## 3. Working hypothesis
+## 3. Working hypotheses
 Based on these descriptions, we can already venture some hypotheses:
 1. `CountVectorizer` represents essentially the same information as the `DictionaryVectorizer` but with raw frequency counts instead of a categorial binary labeling. If we are working with long documents containing many mentions of the same words, then the values in `CountVectorizer`'s vector would be much larger than the values in `DictionaryVectorizer`'s vector, since the latter are effectively capped to 1 no matter how many times each word appears in the text. However, if we are working with short texts, which will tend to contain only one occurrence of each word (except for prepositions, determiners, and similar function words with little lexical meaning), frequency becomes irrelevant, as it will always be either 0 or 1, becoming essentially binary as well, the same set of values used by the `DictionaryVectorizer`. Therefore, our hypothesis is that, with most words having the same frequency in short texts, **a short text's** `DictionaryVectorizer` **-encoded vector will look very similar, if not identical, to a** `CountVectorizer`**-encoded vector** (which is definitely **not** true for long documents).
 2. The two implementations of `TfidfVectorizer` are also very similar, with both using the same formula to calculate TFIDF, and with the only difference being what each of them takes as the "document", its unit of analysis for the IDF term, which can be either
@@ -143,7 +143,7 @@ vectorizers = [
     CountVectorizer(),
     DictionaryVectorizer(),
     TfidfVectorizer(),
-    TfidfVectorizer(group_by_class=3)
+    TfidfVectorizer(group_by_class=1)
 ]
 ```
 
@@ -200,36 +200,36 @@ for doc, label in zip(X_test, Y_test):
     DOCUMENT LABEL: cell-phones
     
       VECTORIZER TYPE: CountVectorizer
-    	weight=2.00	feature="vintage"
-    	weight=2.00	feature="cell"
-    	weight=2.00	feature="phone"
     	weight=2.00	feature="flip"
-    	weight=1.00	feature="new"
+    	weight=2.00	feature="phone"
+    	weight=2.00	feature="cell"
+    	weight=2.00	feature="vintage"
     	weight=1.00	feature="listing"
+    	weight=1.00	feature="new"
     
       VECTORIZER TYPE: DictionaryVectorizer
-    	weight=1.00	feature="new"
-    	weight=1.00	feature="vintage"
-    	weight=1.00	feature="cell"
+    	weight=1.00	feature="flip"
     	weight=1.00	feature="phone"
     	weight=1.00	feature="listing"
-    	weight=1.00	feature="flip"
+    	weight=1.00	feature="cell"
+    	weight=1.00	feature="new"
+    	weight=1.00	feature="vintage"
     
       VECTORIZER TYPE: TfidfVectorizer
     	weight=2.83	feature="flip"
-    	weight=2.14	feature="vintage"
-    	weight=2.14	feature="cell"
     	weight=2.14	feature="listing"
+    	weight=2.14	feature="cell"
+    	weight=2.14	feature="vintage"
     	weight=1.45	feature="phone"
     	weight=1.22	feature="new"
     
       VECTORIZER TYPE: TfidfVectorizer
-    	weight=1.10	feature="vintage"
-    	weight=1.10	feature="cell"
-    	weight=1.10	feature="phone"
     	weight=1.10	feature="flip"
-    	weight=0.41	feature="new"
+    	weight=1.10	feature="phone"
+    	weight=1.10	feature="cell"
+    	weight=1.10	feature="vintage"
     	weight=0.41	feature="listing"
+    	weight=0.41	feature="new"
     
     
     
@@ -238,32 +238,32 @@ for doc, label in zip(X_test, Y_test):
     DOCUMENT LABEL: books
     
       VECTORIZER TYPE: CountVectorizer
-    	weight=1.00	feature="by"
+    	weight=1.00	feature="free"
     	weight=1.00	feature="a"
     	weight=1.00	feature="shipping"
+    	weight=1.00	feature="by"
     	weight=1.00	feature="book"
-    	weight=1.00	feature="free"
     
       VECTORIZER TYPE: DictionaryVectorizer
-    	weight=1.00	feature="by"
+    	weight=1.00	feature="free"
     	weight=1.00	feature="a"
     	weight=1.00	feature="shipping"
+    	weight=1.00	feature="by"
     	weight=1.00	feature="book"
-    	weight=1.00	feature="free"
     
       VECTORIZER TYPE: TfidfVectorizer
-    	weight=2.83	feature="by"
+    	weight=2.83	feature="free"
     	weight=2.83	feature="a"
     	weight=2.83	feature="shipping"
-    	weight=2.83	feature="free"
+    	weight=2.83	feature="by"
     	weight=1.45	feature="book"
     
       VECTORIZER TYPE: TfidfVectorizer
-    	weight=1.10	feature="by"
+    	weight=1.10	feature="free"
     	weight=1.10	feature="a"
     	weight=1.10	feature="shipping"
+    	weight=1.10	feature="by"
     	weight=1.10	feature="book"
-    	weight=1.10	feature="free"
     
     
     
