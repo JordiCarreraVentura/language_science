@@ -18,7 +18,7 @@ if __name__ == '__main__':
         CountVectorizer(),
         DictionaryVectorizer(),
         TfidfVectorizer(),
-        TfidfVectorizer(group_by_class=True)
+        TfidfVectorizer(group_by_class=1)
     ]
     
     

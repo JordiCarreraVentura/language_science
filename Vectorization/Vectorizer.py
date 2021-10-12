@@ -11,10 +11,9 @@ TOKENIZER = re.compile('[a-zA-Z]+')
 
 
 
-
 class Vectorizer:
 
-    def __init__(self, group_by_class=False):
+    def __init__(self, group_by_class=0):
         self.group_by_class = group_by_class
         self.vocab = dict([])
     
@@ -56,8 +55,8 @@ class Vectorizer:
 
 class CountVectorizer(Vectorizer):
 
-    def __init__(self, group_by_class=False):
-        super().__init__(group_by_class=group_by_class)
+    def __init__(self):
+        super().__init__()
     
     def fit_specific(self, documents, labels):
         return
@@ -73,7 +72,7 @@ class CountVectorizer(Vectorizer):
 
 class TfidfVectorizer(Vectorizer):
 
-    def __init__(self, group_by_class=False):
+    def __init__(self, group_by_class=0):
         super().__init__(group_by_class=group_by_class)
         self.dfs = Counter()
         self.tfs = collections.defaultdict(Counter)
@@ -81,10 +80,17 @@ class TfidfVectorizer(Vectorizer):
         self.W = dict([])
     
     def fit_specific(self, documents, labels):
+        if self.group_by_class:
+            clusters = [
+                (label, random.choice(range(self.group_by_class)))
+                for _, label in zip(documents, labels)
+            ]
+        else:
+            clusters = [1 for _ in documents]
         for doc_i, (doc, label) in enumerate(zip(documents, labels)):
             words = TOKENIZER.findall(doc.lower())
             if self.group_by_class:
-                self.tfs[label].update(words)
+                self.tfs[clusters[doc_i]].update(words)
             else:
                 self.tfs[doc_i].update(words)
         self.__make_tfidf()
@@ -124,8 +130,8 @@ class TfidfVectorizer(Vectorizer):
 
 class DictionaryVectorizer(Vectorizer):
 
-    def __init__(self, group_by_class=False):
-        super().__init__(group_by_class=group_by_class)
+    def __init__(self):
+        super().__init__()
     
     def fit_specific(self, documents, labels):
         return
