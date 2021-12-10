@@ -46,20 +46,20 @@
 6. Element-wise calculations
    1. Running t-tests
 7. SQL-style joining...
-  1. ... by concatenating...
-  2. or, given the following input data,
-     1. by joining...
-     2. ... by index joining...
-     3. ... by joining on a key...
-     4. ... or by merging on a key
+   1. ... by concatenating...
+   2. or, given the following input data,
+      1. by joining...
+      2. ... by index joining...
+      3. ... by joining on a key...
+      4. ... or by merging on a key
 8. Updating `DataFrame` values
-  1. Transforming columns with `.apply` and *lambda* functions
-  2. Changing a percentage string to a numerical value
-  3. Encoding categorical variables
-  4. Creating new columns
+   1. Transforming columns with `.apply` and *lambda* functions
+   2. Changing a percentage string to a numerical value
+   3. Encoding categorical variables
+   4. Creating new columns
 
 
-#1. Loading data and performing basic `DataFrame` manipulations
+# 1. Loading data and performing basic `DataFrame` manipulations
 
 ### 1.A. Import data from a csv file
 
