@@ -19,9 +19,9 @@
    3. Get the first _n_ rows of a `DataFrame`
    4. Get the shape of a `DataFrame`
    5. Get the names of a `DataFrame`'s columns
-   6. For categorical variables (i.e., not scalar) get the number of different values they take in the dataset
+   6. For categorical variables (i.v., not scalar) get the number of different values they take in the dataset
    7. For categorical variables again, get the set of unique values they can take
-   8. For any variable (i.e. any given column of the `DataFrame`), get the set of unique values it can take and the occurrence count of each value on that column
+   8. For any variable (i.v. any given column of the `DataFrame`), get the set of unique values it can take and the occurrence count of each value on that column
 3. Grouping
    1. Return a `DataFrame` object grouped by _species__ column
    2. Apply functions to groups
@@ -61,7 +61,7 @@
 
 # 1. Loading data and performing basic `DataFrame` manipulations
 
-### 1.A. Import data from a csv file
+### 1.ix. Import data from a csv file
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -69,7 +69,7 @@
 data = pd.read_csv("iris.csv")
 ```
 
-### 1.B. Copy a dataset
+### 1.ii. Copy a dataset
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -77,7 +77,7 @@ data = pd.read_csv("iris.csv")
 df = data.copy()
 ```
 
-### 1.C. Load multiple files with glob and list comprehension
+### 1.iii. Load multiple files with glob and list comprehension
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -88,7 +88,7 @@ csv_files = glob.glob("path/to/folder/with/csvs/*.csv")
 dfs = [pd.read_csv(filename) for filename in csv_files]
 ```
 
-### 1.D. Transform a `DataFrame` into a `dict`
+### 1.iv. Transform a `DataFrame` into a `dict`
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -97,7 +97,7 @@ df_ = pd.DataFrame(dict(a=["a","b","c"], b=[1,2,3]))
 df_dictionary = dict(zip(df_["a"], df_["b"]))
 ```
 
-### 1.E. Change column names
+### 1.v. Change column names
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -106,7 +106,7 @@ _df = df.rename(columns={"species": "Species"})
 _df.rename(columns={"Species": "species"}, inplace=True)
 ```
 
-### 1.F. Transpose a `DataFrame`
+### 1.vi. Transpose a `DataFrame`
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -114,7 +114,7 @@ _df.rename(columns={"Species": "species"}, inplace=True)
 _df = df.T
 ```
 
-### 1.G. Iterate over `DataFrame` rows
+### 1.vii. Iterate over `DataFrame` rows
 
 [Source](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html)
 
@@ -130,7 +130,7 @@ for row in df_.itertuples():
 ```
 
 
-### 1.H. Sort values in ascending order
+### 1.viii. Sort values in ascending order
 
 [Source](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iterrows.html)
 
@@ -138,11 +138,11 @@ for row in df_.itertuples():
 df.sort_values(by = "sepal width (cm)", ascending=False)
 ```
 
-### 1.I. `inplace` _versus_ call
+### 1.ix. `inplace` _versus_ call
 
 Most methods leave the input `DataFrame` object unchanged and return a new one with the output of the method call. Therefore, using a standard Python variable assignment (`df = df.method()`) will be enough to store the output of the operation. However, in case we want to keep working with the same object, the keyword argument `inplace` must be added to the method call, which will prevent the method from returning a copy with the modified data and will apply the changes to the original one instead.
 
-### 1.J. Axes 0 and 1
+### 1.x. Axes 0 and 1
 
 Axis 0 corresponds to rows (traverses the matrix vertically), all cells in a row.
 Axis 1 corresponds to columns (traverses the matrix horizontally), all cells in a column.
@@ -167,7 +167,7 @@ Axis 1 corresponds to columns (traverses the matrix horizontally), all cells in 
 
 # 2. Exploratory data analysis
 
-### 2.A. List information about a `DataFrame`
+### 2.ix. List information about a `DataFrame`
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -191,7 +191,7 @@ memory usage: 6.0 KB
 
 ```
 
-### 2.B. List statistics about a `DataFrame`
+### 2.ii. List statistics about a `DataFrame`
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -214,7 +214,7 @@ max             7.900000          4.400000           6.900000          2.500000 
 ```
 
 
-### 2.C. Get the first _n_ rows of a `DataFrame`
+### 2.iii. Get the first _n_ rows of a `DataFrame`
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -223,7 +223,7 @@ df.head()
 ```
 
 
-### 2.D. Get the shape of a `DataFrame`
+### 2.iv. Get the shape of a `DataFrame`
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -231,7 +231,7 @@ df.head()
 df.shape
 ```
 
-### 2.E. Get the names of a `DataFrame`'s columns
+### 2.v. Get the names of a `DataFrame`'s columns
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -240,7 +240,7 @@ df.columns
 df.columns.tolist()
 ```
 
-### 2.F. For categorical variables (i.e., not scalar) get the number of different values they take in the dataset
+### 2.vi. For categorical variables (i.v., not scalar) get the number of different values they take in the dataset
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -248,7 +248,7 @@ df.columns.tolist()
 df["species"].nunique()
 ```
 
-### 2.G. For categorical variables again, get the set of unique values they can take
+### 2.vii. For categorical variables again, get the set of unique values they can take
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -256,7 +256,7 @@ df["species"].nunique()
 df["species"].unique()
 ```
 
-### 2.H. For any variable (i.e. any given column of the `DataFrame`), get the set of unique values it can take and the occurrence count of each value on that column
+### 2.viii. For any variable (i.v. any given column of the `DataFrame`), get the set of unique values it can take and the occurrence count of each value on that column
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -275,7 +275,7 @@ df["species"].value_counts()
 > The key function for this task is groupby() and is mainly used
 > for aggregating rows based on categorical features.
 
-### 3.A. Return a `DataFrame` object grouped by "species" column
+### 3.i. Return a `DataFrame` object grouped by "species" column
 
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
@@ -284,7 +284,7 @@ df["species"].value_counts()
 df.groupby("species")
 ```
 
-### 3.B. Apply functions to groups
+### 3.ii. Apply functions to groups
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -322,9 +322,9 @@ df_.agg({'A' : ['sum', 'min'], 'B' : ['min', 'max']})
 
 #  4. Subsetting
 
-### 4.A. By selecting columns
+### 4.i. By selecting columns
 
-#### 4.A.a. by name (same as `df.loc`?)
+#### 4.i.a. by name (same as `df.loc`?)
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -333,7 +333,7 @@ df["sepal length (cm)"]
 df[["sepal length (cm)", "sepal width (cm)", "petal length (cm)"]]
 ```
 
-#### 4.A.b. by number
+#### 4.i.b. by number
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -344,9 +344,9 @@ df.iloc[:, [1,3,4]]     # columns 1, 3 and 4 of all rows
 ```
 
 
-### 4.B. By dropping...
+### 4.ii. By dropping...
 
-#### 4.B.a. ... columns
+#### 4.ii.a. ... columns
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -354,7 +354,7 @@ df.iloc[:, [1,3,4]]     # columns 1, 3 and 4 of all rows
 df.drop("sepal length (cm)", axis=1)
 ```
 
-#### 4.B.b. ... rows
+#### 4.ii.b. ... rows
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -362,9 +362,9 @@ df.drop("sepal length (cm)", axis=1)
 df.drop(df.index[1]) # 1 is row index to be deleted
 ```
 
-### 4.C. By condition
+### 4.iii. By condition
 
-#### 4.C.a. Rows containing exact matches of strings or integers
+#### 4.iii.a. Rows containing exact matches of strings or integers
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -372,7 +372,7 @@ df.drop(df.index[1]) # 1 is row index to be deleted
 df[df["species"].isin([0, "setosa"])]
 ```
 
-#### 4.C.b. Arbitrary conditions
+#### 4.iii.b. Arbitrary conditions
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -448,7 +448,7 @@ df_[query]
 
 # 5. Preprocessing
 
-### 5.A. Handling missing values
+### 5.i. Handling missing values
 
 In case our dataset does not have missing values and we need to create fake ones, we can use the following code:
 
@@ -463,7 +463,7 @@ for _ in range(10):
     df.at[row_idx, column_name]= None
 ```
 
-### 5.A.a. Counting and assessing
+### 5.i.a. Counting and assessing
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -472,9 +472,9 @@ df.isnull().sum()
 df.isnull().sum() / float(len(df))) * 100
 ```
 
-### 5.A.b. Filling
+### 5.i.b. Filling
 
-### 5.A.b.i. Drop the rows or columns that contain them
+### 5.i.b.a. Drop the rows or columns that contain them
 
 *Drop rows*
 
@@ -492,7 +492,7 @@ df.dropna(inplace=True)
 _df.dropna(axis=1, inplace=True)
 ```
 
-### 5.A.b.ii. Replace/impute missing values
+### 5.i.b.b. Replace/impute missing values
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -516,7 +516,7 @@ for column in df.columns:
     _df[column].fillna(df[column].mean(), inplace=True)
 ```
 
-### 5.A.b.iii. Interpolate missing values
+### 5.i.b.c. Interpolate missing values
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -528,7 +528,7 @@ df["sepal length (cm)"].interpolate()   # specific column
 ```
 
 
-### 5.B. Normalizing / Scaling values in a pandas column with sklearn
+### 5.ii. Normalizing / Scaling values in a pandas column with sklearn
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -555,7 +555,7 @@ df[["sepal length (cm)", "sepal width (cm)"]].agg([np.sum, np.mean])
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
 
-# 6.1. Running t-tests
+# 6.i. Running t-tests
 
 ```
 from scipy.stats import ttest_rel
@@ -573,7 +573,7 @@ df = pd.DataFrame(dict(data=data, data_plus_noise=data_plus_noise))
 
 # 7. SQL-style joining...
 
-### 7.A. ... by concatenating...
+### 7.i. ... by concatenating...
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -585,7 +585,7 @@ df2 = df[["sepal length (cm)", "petal length (cm)"]]
 dfx = pd.concat([df1, df2], axis = 1)   
 ```
 
-### 7.B. or, given the following input data,
+### 7.ii. or, given the following input data,
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -601,7 +601,7 @@ other = pd.DataFrame({'key': ['K0', 'K1', 'K2'],
 ```
 
 
-### 7.B.a. by joining...
+### 7.ii.a. by joining...
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -610,7 +610,7 @@ other = pd.DataFrame({'key': ['K0', 'K1', 'K2'],
 _df = df.join(other, lsuffix='_caller', rsuffix='_other')
 ```
 
-### 7.B.b. ... by index joining...
+### 7.ii.b. ... by index joining...
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -619,7 +619,7 @@ _df = df.join(other, lsuffix='_caller', rsuffix='_other')
 _df = df.set_index('key').join(other.set_index('key'))
 ```
 
-### 7.B.c. ... by joining on a key...
+### 7.ii.c. ... by joining on a key...
 
 This is the best option, the output shape is the most logical.
 
@@ -627,7 +627,7 @@ This is the best option, the output shape is the most logical.
 _df = df.join(other.set_index('key'), on='key')     
 ```
 
-### 7.B.d. ... or by merging on a key
+### 7.ii.d. ... or by merging on a key
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -643,7 +643,7 @@ df_merged = df1.merge(df2, on='col_to_merge')
 
 # 8. Updating `DataFrame` values
 
-### 8.A. Transforming columns with `.apply` and **lambda** functions
+### 8.i. Transforming columns with `.apply` and **lambda** functions
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -668,7 +668,7 @@ df["c"]=df["a"].apply(Square())
 ```
 
 
-### 8.B. Changing a percentage string to a numerical value
+### 8.ii. Changing a percentage string to a numerical value
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -685,7 +685,7 @@ df["col_with_percentage"] = df["col_with_percentage"].apply(change_to_numerical)
 ```
 
 
-### 8.C. Encoding categorical variables
+### 8.iii. Encoding categorical variables
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -704,7 +704,7 @@ _df = df.replace(
 ```
 
 
-### 8.D. Creating new columns
+### 8.iv. Creating new columns
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
