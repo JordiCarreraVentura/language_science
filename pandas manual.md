@@ -9,7 +9,7 @@
    2. Copy a dataset
    3. Load multiple files with glob and list comprehension
    4. Transform a `DataFrame` into a `dict`
-   5. [Change column names](#change-column-names)
+   5. Change column names
    6. Transpose a `DataFrame`
    7. Iterate over `DataFrame` rows
    8. Sort values in ascending order
