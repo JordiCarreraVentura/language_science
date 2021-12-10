@@ -1,20 +1,18 @@
 # `pandas` manual
 
-*Local path* `/Users/jordi/Laboratorio/Python/pandas/pandas_tutorial/tutorial.py`
-
 # Table of contents
 
-1. [Loading data and performing basic `DataFrame` manipulations](#loading-data-and-performing-basic-dataframe-manipulations)
+1. [Loading data and performing basic `DataFrame` manipulations](#1-loading-data-and-performing-basic-dataframe-manipulations)
    1. Import data from a `csv` file
    2. Copy a dataset
    3. Load multiple files with glob and list comprehension
    4. Transform a `DataFrame` into a `dict`
-   5. [Change column names](#change-column-names)
+   5. [Change column names](#1-D-change-column-names)
    6. Transpose a `DataFrame`
    7. Iterate over `DataFrame` rows
    8. Sort values in ascending order
    9. `inplace` _versus_ call
-   10. Axes and 1
+   10. Axes 0 and 1
 2. Exploratory data analysis
    1. List information about a `DataFrame`
    2. List statistics about a `DataFrame`
