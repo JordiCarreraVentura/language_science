@@ -6,8 +6,8 @@
    1. Import data from a `csv` file
    2. Copy a dataset
    3. Load multiple files with glob and list comprehension
-   4. Transform a `DataFrame` into a `dict`
-   5. [Change column names](#1-D-change-column-names)
+   4. [Transform a `DataFrame` into a `dict`](#1-d-transform-a-dataframe-into-a-dict)
+   5. [Change column names](#1-e-change-column-names)
    6. Transpose a `DataFrame`
    7. Iterate over `DataFrame` rows
    8. Sort values in ascending order
@@ -59,7 +59,7 @@
   4. Creating new columns
 
 
-# 1. Loading data and performing basic `DataFrame` manipulations
+#1. Loading data and performing basic `DataFrame` manipulations
 
 ### 1.A. Import data from a csv file
 
@@ -88,7 +88,7 @@ csv_files = glob.glob("path/to/folder/with/csvs/*.csv")
 dfs = [pd.read_csv(filename) for filename in csv_files]
 ```
 
-### 1.D. Transform a `DataFrame` into a `dict`
+###1.D. Transform a `DataFrame` into a `dict`
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -97,7 +97,7 @@ df_ = pd.DataFrame(dict(a=["a","b","c"], b=[1,2,3]))
 df_dictionary = dict(zip(df_["a"], df_["b"]))
 ```
 
-### 1.E. Change column names
+###Change column names
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
