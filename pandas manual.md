@@ -2,12 +2,12 @@
 
 # Table of contents
 
-1. [Loading data and performing basic `DataFrame` manipulations](#1-loading-data-and-performing-basic-dataframe-manipulations)
+1. Loading data and performing basic `DataFrame` manipulations
    1. Import data from a `csv` file
    2. Copy a dataset
    3. Load multiple files with glob and list comprehension
-   4. [Transform a `DataFrame` into a `dict`](#1-d-transform-a-dataframe-into-a-dict)
-   5. [Change column names](#1-e-change-column-names)
+   4. Transform a `DataFrame` into a `dict`
+   5. Change column names]
    6. Transpose a `DataFrame`
    7. Iterate over `DataFrame` rows
    8. Sort values in ascending order
@@ -88,7 +88,7 @@ csv_files = glob.glob("path/to/folder/with/csvs/*.csv")
 dfs = [pd.read_csv(filename) for filename in csv_files]
 ```
 
-###1.D. Transform a `DataFrame` into a `dict`
+### 1.D. Transform a `DataFrame` into a `dict`
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -97,7 +97,7 @@ df_ = pd.DataFrame(dict(a=["a","b","c"], b=[1,2,3]))
 df_dictionary = dict(zip(df_["a"], df_["b"]))
 ```
 
-###Change column names
+### 1.E. Change column names
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -120,13 +120,13 @@ _df = df.T
 
 ```
 # for row in df_.iterrows():
-#     print(row)
+#     continue
 
 # for row in df_.iteritems():
-#     print(row)
+#     continue
 
 for row in df_.itertuples():
-    print(row)
+    continue
 ```
 
 
@@ -172,7 +172,7 @@ Axis 1 corresponds to columns (traverses the matrix horizontally), all cells in 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
 ```
-print(df.info())
+df.info()
 ```
 
 ```
@@ -290,7 +290,7 @@ df.groupby("species")
 
 ```
 df["sepal length (cm)"].groupby(df["species"]).mean()
-print(df.groupby("species").agg([np.sum, np.mean, np.std]))
+df.groupby("species").agg([np.sum, np.mean, np.std])
 ```
 
 `DataFrame.agg` performs an aggregation but in a UX sense of aggregation, not a computational sense: the functions specified as the argument for `agg` are already performed element-wise over the whole columns of the DataFrame, so no further aggregation is required and an "aggregated" value is already produced. The aggregation that the method `agg` refers to is the fact that a single summary table will be returned that displays all the functions specified as the argument of `agg` as separate rows.
@@ -621,7 +621,7 @@ _df = df.set_index('key').join(other.set_index('key'))
 
 ### 7.B.c. ... by joining on a key...
 
-This is the best option, the output shape is more logical
+This is the best option, the output shape is the most logical.
 
 ```
 _df = df.join(other.set_index('key'), on='key')     
@@ -631,7 +631,7 @@ _df = df.join(other.set_index('key'), on='key')
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
-This is also good, just as good as the previous option
+This is another option as good as the previous one.
 
 ```
 df1 = pd.DataFrame(dict(a=[1,2,3], b=[10,20,30], col_to_merge=["a","b","c"]))
@@ -643,7 +643,7 @@ df_merged = df1.merge(df2, on='col_to_merge')
 
 # 8. Updating `DataFrame` values
 
-### 8.A. Transforming columns with `.apply` and *lambda* functions
+### 8.A. Transforming columns with `.apply` and **lambda** functions
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
@@ -708,7 +708,7 @@ _df = df.replace(
 
 [Source](https://www.kdnuggets.com/2021/08/15-python-snippets-optimize-data-science-pipeline.html)
 
-Often big part of feature engineering.
+This is often a big part of feature engineering.
 
 ```
 df['2x sepal length'] = df["sepal length (cm)"] * 2
