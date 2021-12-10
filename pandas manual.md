@@ -61,7 +61,7 @@
 
 # 1. Loading data and performing basic `DataFrame` manipulations
 
-### 1.ix. Import data from a csv file
+### 1.i. Import data from a csv file
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
