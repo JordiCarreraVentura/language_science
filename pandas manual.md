@@ -476,7 +476,7 @@ df.isnull().sum() / float(len(df))) * 100
 
 ### 5.i.b.a. Drop the rows or columns that contain them
 
-*Drop rows*
+**Drop rows**
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
@@ -484,7 +484,7 @@ df.isnull().sum() / float(len(df))) * 100
 df.dropna(inplace=True)
 ```
 
-*Drop columns*
+**Drop columns**
 
 [Source](https://towardsdatascience.com/a-checklist-for-data-wrangling-8f106c093fef)
 
