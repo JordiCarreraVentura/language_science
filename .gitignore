@@ -112,3 +112,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# virtual environment
+ReFinED/bin/*
+ReFinED/pyvenv.cfg
+
+# parallel repository branch
+GLiNER/*
