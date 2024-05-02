@@ -116,6 +116,7 @@ dmypy.json
 # virtual environment
 ReFinED/bin/*
 ReFinED/pyvenv.cfg
+ReFinED/share/*
 
 # parallel repository branch
 GLiNER/*
