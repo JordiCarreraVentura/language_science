@@ -115,6 +115,7 @@ dmypy.json
 
 # virtual environment
 ReFinED/bin/*
+ReFinED/etc/*
 ReFinED/pyvenv.cfg
 ReFinED/share/*
 
