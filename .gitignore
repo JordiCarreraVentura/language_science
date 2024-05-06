@@ -123,4 +123,5 @@ ReFinED/share/*
 GLiNER/*
 
 # local cache
-ReFinED/cache.p
+ReFinED/cache_articles.p
+ReFinED/cache_pages.p
