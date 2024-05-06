@@ -121,3 +121,6 @@ ReFinED/share/*
 
 # parallel repository branch
 GLiNER/*
+
+# local cache
+ReFinED/cache.p
