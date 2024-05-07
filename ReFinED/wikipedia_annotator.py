@@ -130,6 +130,7 @@ def extract_terms2(text, orders=[4, 3, 2, 1], ratio=0.75):
                         continue
                     terms.append({
                         'order': order,
+                        'text': term,
                         'components': tokens,
                         'wikipedia_page': page_title,
                         'wikipedia_article': {
