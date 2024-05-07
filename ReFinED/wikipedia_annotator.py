@@ -156,13 +156,19 @@ def cached_lookup(term, cache, func):
 
 class WikipediaAnnotator:
 
-    def __init__(self):
+    def __init__(self, orders=[3, 2, 1], ratio=0.88):
+        self.orders = orders
+        self.ratio = ratio
         wikipedia.set_lang("en")
 
     def __call__(self, text):
         return {
             'text': text,
-            'annotations': extract_terms(text)
+            'annotations': extract_terms(
+                text,
+                orders=self.orders,
+                ratio=self.ratio
+            )
         }
 
 
@@ -172,8 +178,8 @@ if __name__ == '__main__':
     ann = WikipediaAnnotator()
 
     results = []
-#     for text in [TEXT__PAPER_TITLES, TEXT_VENICE]:
-    for text in ["From the 9th to the 12th centuries, Venice developed into a powerful maritime empire (an Italian thalassocracy known also as repubblica marinara). In addition to Venice there were seven others: the most important ones were Genoa, Pisa, and Amalfi; and the lesser known were Ragusa, Ancona, Gaeta and Noli."]:
+    for text in [TEXT__PAPER_TITLES, TEXT_VENICE]:
+#     for text in ["From the 9th to the 12th centuries, Venice developed into a powerful maritime empire (an Italian thalassocracy known also as repubblica marinara). In addition to Venice there were seven others: the most important ones were Genoa, Pisa, and Amalfi; and the lesser known were Ragusa, Ancona, Gaeta and Noli."]:
         results.append(ann(text))
 
     with open('results.json', 'w') as wrt:
