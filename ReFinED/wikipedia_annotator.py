@@ -20,8 +20,10 @@ WIKIPEDIA_CACHE_SIZE = 25000
 
 STOPWORDS = stopwords.words('english')
 STOPWORDS.extend([
-    'also', 'lesser',
+    'almost', 'also',
+    'lesser',
     'one', 'ones', 'other', 'others',
+    'rest',
     'seven'
 ])
 
