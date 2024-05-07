@@ -40,7 +40,11 @@ STOPWORDS.extend([
 
 CACHE_PAGES = Cache(size=WIKIPEDIA_CACHE_SIZE, path='cache_pages.p')
 
+CACHE_PAGES_SOFT = Cache(size=WIKIPEDIA_CACHE_SIZE, path='cache_pages_soft.p')
+
 CACHE_ARTICLES = Cache(size=WIKIPEDIA_CACHE_SIZE, path='cache_articles.p')
+
+N_RESULTS = 5
 
 TOKEN = re.compile(r'\w+', re.IGNORECASE)
 
@@ -108,11 +112,22 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
 
             term = text[tokens[0]['start']:tokens[-1]['end']]
             term_text = ' '.join(tokens_text)
-            results = cached_lookup((term, False), CACHE_PAGES, wikipedia.search).copy()
+            results = cached_lookup(
+                term,
+                CACHE_PAGES,
+                wikipedia.search,
+                results=N_RESULTS
+            ).copy()
             if not results:
                 results = cached_lookup(
-                    (term, True), CACHE_PAGES, wikipedia.search
-                ).copy()
+                    term,
+                    CACHE_PAGES_SOFT,
+                    wikipedia.search,
+                    results=N_RESULTS,
+                    suggestion=True
+                )
+                print(results)
+                results = results.copy()
 
             if not results:
                 continue
@@ -121,6 +136,7 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
             annotations = []
             while results:
                 page_title = results.pop(0)
+                print('  ?', term_text, '-> ', page_title)
                 if len(page_title.split()) > len(term_text.split()):
                     continue
                 matcher = SequenceMatcher(None, page_title.lower(), term_text)
@@ -161,20 +177,25 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
 
 
 
-def cached_lookup(term, cache, func, suggestion=False):
+def cached_lookup(term, cache, func, results=10, suggestion=False):
     attempts = 0
     while True:
         try:
             if term in cache:
-                return cache[term]
+                results = cache[term]
+                if isinstance(results, tuple):
+                    return []
+                return results
             else:
                 if func == wikipedia.page:
                     results = func(term, auto_suggest=False)
                 else:
-                    results = func(term, suggestion=suggestion)
+                    results = func(term, results=results, suggestion=suggestion)
+                if isinstance(results, tuple):
+                    return []
                 cache.add(term, results)
-            time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
-            return results
+                time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
+                return results
         except ConnectionError:
             pass
         except WikipediaException:
