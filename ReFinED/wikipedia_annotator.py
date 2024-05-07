@@ -121,7 +121,9 @@ def extract_terms2(text, orders=[4, 3, 2, 1], ratio=0.75):
                 if matcher.ratio() >= ratio:
                     print('\t>>>', term_text, '||', page_title)
                     try:
-                        article = cached_lookup(term, CACHE_ARTICLES, wikipedia.page)
+                        article = cached_lookup(
+                            page_title, CACHE_ARTICLES, wikipedia.page
+                        )
                     except DisambiguationError:
                         continue
                     except PageError:
