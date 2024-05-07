@@ -106,6 +106,8 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
             term = text[tokens[0]['start']:tokens[-1]['end']]
             term_text = ' '.join(tokens_text)
             results = cached_lookup(term, CACHE_PAGES, wikipedia.search)
+            if not results:
+                continue
 
             matched = False
             for page_title in results:
@@ -118,6 +120,8 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
                         article = cached_lookup(
                             page_title, CACHE_ARTICLES, wikipedia.page
                         )
+                        if not article:
+                            continue
                     except DisambiguationError:
                         continue
                     except PageError:
@@ -146,6 +150,7 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
 
 
 def cached_lookup(term, cache, func):
+    attempts = 0
     while True:
         try:
             if term in cache:
@@ -159,9 +164,12 @@ def cached_lookup(term, cache, func):
             time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
             return results
         except ConnectionError:
-            time.sleep(10)
+            pass
         except WikipediaException:
-            time.sleep(10)
+            pass
+        attempts += 1
+        if attempts >= 3:
+            return []
 
 
 
