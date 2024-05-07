@@ -108,51 +108,60 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
 
             term = text[tokens[0]['start']:tokens[-1]['end']]
             term_text = ' '.join(tokens_text)
-            results = cached_lookup(term, CACHE_PAGES, wikipedia.search)
+            results = cached_lookup((term, False), CACHE_PAGES, wikipedia.search).copy()
+            if not results:
+                results = cached_lookup(
+                    (term, True), CACHE_PAGES, wikipedia.search
+                ).copy()
+
             if not results:
                 continue
 
             matched = False
-            for page_title in results:
+            annotations = []
+            while results:
+                page_title = results.pop(0)
                 if len(page_title.split()) > len(term_text.split()):
                     continue
                 matcher = SequenceMatcher(None, page_title.lower(), term_text)
                 if matcher.ratio() >= ratio:
-                    print('\t>>>', term_text, '||', page_title)
                     try:
                         article = cached_lookup(
                             page_title, CACHE_ARTICLES, wikipedia.page
                         )
+                        print('<<< ', term_text, '||', page_title)
                         if not article:
                             continue
-                    except DisambiguationError:
+                    except DisambiguationError as err:
+                        results = err.options + results
                         continue
                     except PageError:
                         continue
-                    terms.append({
-                        'order': order,
-                        'text': term,
-                        'components': tokens,
-                        'wikipedia_page': page_title,
-                        'wikipedia_article': {
-                            'title': article.title,
-                            'url': article.url,
-                            'categories': filter_categories(article.categories),
-                            #'content': article.content,
-                            'summary': article.summary
-                        }
+
+                    annotations.append({
+                        'title': article.title,
+                        'url': article.url,
+                        'categories': filter_categories(article.categories),
+                        'summary': article.summary
                     })
                     covered.update(area)
                     matched = True
-                    break
+                    print('\t>>>', term_text, '||', page_title)
+
             if not matched:
                 print(term_text)
-
+            else:
+                terms.append({
+                    'order': order,
+                    'text': term,
+                    'components': tokens,
+                    'annotations': annotations,
+                })
     return terms
 
 
 
-def cached_lookup(term, cache, func):
+def cached_lookup(term, cache, func, suggestion=False):
     attempts = 0
     while True:
         try:
@@ -162,7 +171,7 @@ def cached_lookup(term, cache, func):
                 if func == wikipedia.page:
                     results = func(term, auto_suggest=False)
                 else:
-                    results = func(term)
+                    results = func(term, suggestion=suggestion)
                 cache.add(term, results)
             time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
             return results
