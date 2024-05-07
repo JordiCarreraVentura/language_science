@@ -2,6 +2,7 @@ from difflib import SequenceMatcher
 import json
 import random
 import re
+from requests.exceptions import ConnectionError
 import time
 
 from nltk import ngrams
@@ -141,16 +142,20 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
 
 
 def cached_lookup(term, cache, func):
-    if term in cache:
-        return cache[term]
-    else:
-        if func == wikipedia.page:
-            results = func(term, auto_suggest=False)
-        else:
-            results = func(term)
-        cache.add(term, results)
-    time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
-    return results
+    while True:
+        try:
+            if term in cache:
+                return cache[term]
+            else:
+                if func == wikipedia.page:
+                    results = func(term, auto_suggest=False)
+                else:
+                    results = func(term)
+                cache.add(term, results)
+            time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
+            return results
+        except ConnectionError:
+            time.sleep(10)
 
 
 
