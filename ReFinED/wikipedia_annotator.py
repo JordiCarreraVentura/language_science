@@ -217,8 +217,5 @@ if __name__ == '__main__':
     for text in ["From the 9th to the 12th centuries, Venice developed into a powerful maritime empire (an Italian thalassocracy known also as repubblica marinara). In addition to Venice there were seven others: the most important ones were Genoa, Pisa, and Amalfi; and the lesser known were Ragusa, Ancona, Gaeta and Noli."]:
         results.append(ann(text))
 
-    for sent in splitter(text):
-        print()
-        print(sent)
-        for term in extract_terms2(sent):
-            print(json.dumps(term, indent=4))
+    with open('results.json', 'w') as wrt:
+        json.dump(results, wrt, indent=4)
