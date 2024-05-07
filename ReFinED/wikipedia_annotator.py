@@ -149,7 +149,7 @@ def cached_lookup(term, cache, func):
         else:
             results = func(term)
         cache.add(term, results)
-    time.sleep(random.randrange(1, 3) + random.uniform(0.0, 1.0))
+    time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
     return results
 
 
