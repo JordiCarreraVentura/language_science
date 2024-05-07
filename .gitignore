@@ -127,4 +127,4 @@ ReFinED/*cache_articles.p
 ReFinED/*cache_pages.p
 
 # temporary output files
-ReFinED/results.json
+ReFinED/*results.json
