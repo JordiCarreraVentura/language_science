@@ -67,19 +67,21 @@ def filter_categories(categories):
         cat for cat in categories
         if not (
             (cat.startswith('Articles ') and 'identifiers' in cat)
-            or (cat.startswith('Articles with '))
-            or (cat.startswith('Articles needing '))
-            or (cat.startswith('Articles containing '))
-            or (cat.startswith('Articles lacking '))
-            or (cat.startswith('Articles using '))
-            or (cat.startswith('Pages using '))
-            or (cat.startswith('Pages with '))
+            or (cat.startswith('Articles '))
+            or (cat.startswith('Pages '))
             or (cat.startswith('CS1 '))
+            or (cat.startswith('CS1:'))
             or ' stubs' in cat
+            or 'EngvarB' in cat
+            or 'Featured articles' in cat
             or (cat.startswith('All '))
-            or 'Webarchive template ' in cat
+            or ' template ' in cat
+            or 'Source attribution ' in cat
+            or 'Wikidata' in cat
             or 'Wikipedia' in cat
-            or 'Wikipedia' in cat
+            or 'Wikisource' in cat
+            or 'Use dmy dates' in cat
+            or 'Use mdy dates' in cat
         )
     ]
 
