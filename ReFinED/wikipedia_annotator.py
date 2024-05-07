@@ -154,7 +154,10 @@ def cached_lookup(term, cache, func):
     if term in cache:
         return cache[term]
     else:
-        results = func(term)
+        if func == wikipedia.page:
+            results = func(term, auto_suggest=False)
+        else:
+            results = func(term)
         cache.add(term, results)
     time.sleep(random.randrange(1, 3) + random.uniform(0.0, 1.0))
     return results
