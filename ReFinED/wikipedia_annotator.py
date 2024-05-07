@@ -13,7 +13,10 @@ import wikipedia
 from wikipedia.exceptions import DisambiguationError, PageError
 
 from cache import Cache
-
+from texts import (
+    TEXT__PAPER_TITLES,
+    TEXT_VENICE
+)
 
 
 WIKIPEDIA_CACHE_SIZE = 25000
@@ -209,9 +212,10 @@ if __name__ == '__main__':
 
     ann = WikipediaAnnotator()
 
-    text = "From the 9th to the 12th centuries, Venice developed into a powerful maritime empire (an Italian thalassocracy known also as repubblica marinara). In addition to Venice there were seven others: the most important ones were Genoa, Pisa, and Amalfi; and the lesser known were Ragusa, Ancona, Gaeta and Noli."
-
-    text = "Its own strategic position at the head of the Adriatic made Venetian naval and commercial power almost invulnerable. With the elimination of pirates along the Dalmatian coast, the city became a flourishing trade centre between Western Europe and the rest of the world, especially with the Byzantine Empire and Asia, where its navy protected sea routes against piracy."
+    results = []
+#     for text in [TEXT__PAPER_TITLES, TEXT_VENICE]:
+    for text in ["From the 9th to the 12th centuries, Venice developed into a powerful maritime empire (an Italian thalassocracy known also as repubblica marinara). In addition to Venice there were seven others: the most important ones were Genoa, Pisa, and Amalfi; and the lesser known were Ragusa, Ancona, Gaeta and Noli."]:
+        results.append(ann(text))
 
     for sent in splitter(text):
         print()
