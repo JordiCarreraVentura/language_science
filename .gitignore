@@ -123,8 +123,7 @@ ReFinED/share/*
 GLiNER/*
 
 # local cache
-ReFinED/*cache_articles.p
-ReFinED/*cache_pages.p
+ReFinED/*cache*.p
 
 # temporary output files
 ReFinED/*results.json
