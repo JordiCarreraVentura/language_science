@@ -38,22 +38,6 @@ TOKEN = re.compile(r'\w+', re.IGNORECASE)
 
 
 
-def extract_terms(text, orders=(1, 3)):
-    start, end = orders
-    for sent in splitter(text):
-        tokens = tokenizer(sent.lower())
-        for n in range(start, end + 1):
-            for gram in ngrams(tokens, n):
-                first = gram[0]
-                last = gram[-1]
-                if first in STOPWORDS \
-                or last in STOPWORDS \
-                or [token for token in gram if not token.isalpha()]:
-                #or filter(lambda x: x.isdigit(), gram):
-                    continue
-                yield ' '.join(gram)
-
-
 def extract_words(text):
     terms = []
     for _match in TOKEN.finditer(text):
@@ -92,7 +76,7 @@ def filter_categories(categories):
 
 
 
-def extract_terms2(text, orders=[4, 3, 2, 1], ratio=0.75):
+def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
     words = extract_words(text)
     covered = set([])
     orders = orders.copy()
@@ -194,17 +178,10 @@ class WikipediaAnnotator:
         wikipedia.set_lang("en")
 
     def __call__(self, text):
-        annotation = dict([])
-        annotation['text'] = text
-        annotations = []
-        for term in extract_terms(text):
-            entities = cached_lookup(term)
-            annotations.append({
-                'text': term,
-                'entities': entities
-            })
-        annotation['annotations'] = annotations
-        return annotation
+        return {
+            'text': text,
+            'annotations': extract_terms(text)
+        }
 
 
 
