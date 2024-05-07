@@ -11,7 +11,11 @@ from nltk import sent_tokenize as splitter
 from nltk import wordpunct_tokenize as tokenizer
 from refined.inference.processor import Refined
 import wikipedia
-from wikipedia.exceptions import DisambiguationError, PageError
+from wikipedia.exceptions import (
+    DisambiguationError,
+    PageError,
+    WikipediaException
+)
 
 from cache import Cache
 from texts import (
@@ -155,6 +159,8 @@ def cached_lookup(term, cache, func):
             time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
             return results
         except ConnectionError:
+            time.sleep(10)
+        except WikipediaException:
             time.sleep(10)
 
 
