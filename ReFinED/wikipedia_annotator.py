@@ -30,12 +30,17 @@ STOPWORDS = stopwords.words('english')
 STOPWORDS.extend([
     'across', 'actually',
     'almost', 'already', 'also',
-    'far',
+    'better',
+    'far', 'fast', 'faster',
+    'help',
     'late', 'later',
     'lesser',
     'one', 'ones', 'other', 'others',
-    'rest',
-    'seven'
+    'real', 'recent', 'rest',
+    'self',
+    'seven',
+    'via',
+    'will',
 ])
 
 CACHE_PAGES = Cache(size=WIKIPEDIA_CACHE_SIZE, path='cache_pages.p')
