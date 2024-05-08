@@ -131,7 +131,6 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
                     results=N_RESULTS,
                     suggestion=True
                 )
-                #print(results)
                 results = results.copy()
 
             if not results:
