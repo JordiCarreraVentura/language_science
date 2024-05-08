@@ -18,18 +18,19 @@ class ReFinED:
             entity_set="wikipedia"
         )
 
-    def __call__(self, text):
+    def extract_terms(self, text):
         annotations = []
         for sent in splitter(text):
             onset = text.index(sent)
             for span in self.refined.process_text(sent):
-                if not span.predicted_entity:
+                if not span.predicted_entity \
+                or not span.predicted_entity.wikipedia_entity_title:
                     continue
                 annotations.append((
                     span.start + onset,
                     span.start + len(span.text) + onset,
                     span.text,
-                    span.predicted_entity
+                    span.predicted_entity.wikipedia_entity_title
                 ))
         return annotations
 
@@ -42,5 +43,5 @@ if __name__ == '__main__':
     print(TEXT_VENICE)
     print()
 
-    for p in rfed(TEXT_VENICE):
+    for p in rfed.extract_terms(TEXT_VENICE):
         print(p)
