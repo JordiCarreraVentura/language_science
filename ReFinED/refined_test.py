@@ -8,14 +8,39 @@ from texts import (
     TEXT_VENICE
 )
 
-refined = Refined.from_pretrained(model_name='wikipedia_model_with_numbers',
-                                  entity_set="wikipedia")
 
 
-for sent in splitter(text):
-    tokens = tokenizer(sent)
-    for n in [3, 1]:
-        for chunk in ngrams(tokens, n):
-            phrase = ' '.join(chunk).lower()
-            for span in refined.process_text(phrase):
-                print(f'{phrase}  ||  {str(span)}')
+class ReFinED:
+
+    def __init__(self):
+        self.refined = Refined.from_pretrained(
+            model_name='wikipedia_model_with_numbers',
+            entity_set="wikipedia"
+        )
+
+    def __call__(self, text):
+        annotations = []
+        for sent in splitter(text):
+            onset = text.index(sent)
+            for span in self.refined.process_text(sent):
+                if not span.predicted_entity:
+                    continue
+                annotations.append((
+                    span.start + onset,
+                    span.start + len(span.text) + onset,
+                    span.text,
+                    span.predicted_entity
+                ))
+        return annotations
+
+
+
+if __name__ == '__main__':
+
+    rfed = ReFinED()
+
+    print(TEXT_VENICE)
+    print()
+
+    for p in rfed(TEXT_VENICE):
+        print(p)
