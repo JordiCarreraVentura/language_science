@@ -130,7 +130,7 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
                     results=N_RESULTS,
                     suggestion=True
                 )
-                print(results)
+                #print(results)
                 results = results.copy()
 
             if not results:
@@ -140,7 +140,7 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
             annotations = []
             while results:
                 page_title = results.pop(0)
-                print('  ?', term_text, '-> ', page_title)
+                #print('  ?', term_text, '-> ', page_title)
                 if len(page_title.split()) > len(term_text.split()):
                     continue
                 matcher = SequenceMatcher(None, page_title.lower(), term_text)
@@ -149,7 +149,7 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
                         article = cached_lookup(
                             page_title, CACHE_ARTICLES, wikipedia.page
                         )
-                        print('<<< ', term_text, '||', page_title)
+                        #print('<<< ', term_text, '||', page_title)
                         if not article:
                             continue
                     except DisambiguationError as err:
@@ -166,10 +166,11 @@ def extract_terms(text, orders=[4, 3, 2, 1], ratio=0.75):
                     })
                     covered.update(area)
                     matched = True
-                    print('\t>>>', term_text, '||', page_title)
+                    #print('\t>>>', term_text, '||', page_title)
 
             if not matched:
-                print(term_text)
+                #print(term_text)
+                pass
             else:
                 terms.append({
                     'order': order,
