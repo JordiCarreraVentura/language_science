@@ -34,6 +34,7 @@ STOPWORDS.extend([
     'help',
     'late', 'later',
     'lesser',
+    'new',
     'one', 'ones', 'other', 'others',
     'real', 'recent', 'rest',
     'self',
