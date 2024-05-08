@@ -228,6 +228,18 @@ class WikipediaAnnotator:
             )
         }
 
+    def extract_terms(self, text):
+        annotations = self(text)
+        return [
+            (
+                ann['start'],
+                ann['end'],
+                ann['text'],
+                ann['annotations'][0]['title']
+            )
+            for ann in annotations
+        ]
+
 
 
 if __name__ == '__main__':
