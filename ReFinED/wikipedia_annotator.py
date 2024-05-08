@@ -198,7 +198,7 @@ def cached_lookup(term, cache, func, results=10, suggestion=False):
                 else:
                     results = func(term, results=results, suggestion=suggestion)
                 if isinstance(results, tuple):
-                    return []
+                    results = []
                 cache.add(term, results)
                 time.sleep(random.randrange(3, 5) + random.uniform(0.5, 2.5))
                 return results
