@@ -208,6 +208,7 @@ def cached_lookup(term, cache, func, results=10, suggestion=False):
             pass
         attempts += 1
         if attempts >= 3:
+            cache.add(term, [])
             return []
 
 
