@@ -122,8 +122,9 @@ ReFinED/share/*
 # parallel repository branch
 GLiNER/*
 
-# local cache
+# local cache and back-ups
 ReFinED/*cache*.p
+ReFinED/bkp/*
 
 # temporary output files
 ReFinED/*results.json
