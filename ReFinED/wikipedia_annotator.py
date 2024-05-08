@@ -229,16 +229,22 @@ class WikipediaAnnotator:
         }
 
     def extract_terms(self, text):
-        annotations = self(text)
-        return [
-            (
-                ann['start'],
-                ann['end'],
-                ann['text'],
-                ann['annotations'][0]['title']
-            )
-            for ann in annotations
-        ]
+        extraction = self(text)
+        annotations = extraction['annotations']
+        extracted = []
+        for ann in annotations:
+            indices = []
+            for component in ann['components']:
+                start, end = component['start'], component['end']
+                indices.extend([start, end])
+            for sense in ann['annotations']:
+                extracted.append((
+                    min(indices),
+                    max(indices),
+                    ann['text'],
+                    sense['title']
+                ))
+        return sorted(extracted)
 
 
 
