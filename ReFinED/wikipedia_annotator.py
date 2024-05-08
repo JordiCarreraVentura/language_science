@@ -9,7 +9,6 @@ from nltk import ngrams
 from nltk.corpus import stopwords
 from nltk import sent_tokenize as splitter
 from nltk import wordpunct_tokenize as tokenizer
-from refined.inference.processor import Refined
 import wikipedia
 from wikipedia.exceptions import (
     DisambiguationError,
