@@ -15,6 +15,13 @@ not_incr = lambda x: True if x[0] >= x[1] else False
 
 
 
+def f_score(p, r, f=1.0):
+    coef = f ** 2
+    num = p * r
+    denom = (p * coef) + r
+    return round((1 + coef) * (num / denom), 2)
+
+
 def check_annotations(annotations: list[tuple[int, int, str, str]]) -> None:
     if not isinstance(annotations[0], tuple):
         raise ValueError('Values stored in `annotations` must be tuples, got '
@@ -113,7 +120,7 @@ def character_coverage(
         delta = end - start
         num += delta
     if denom:
-        return num / denom
+        return round(num / denom, 2)
     return 0.0
 
 
@@ -121,7 +128,10 @@ def character_coverage(
 def diff_annotations(
     ann1: list[tuple[int, int, str, str]],
     ann2: list[tuple[int, int, str, str]]
-) -> list[list[tuple[int, int, str, str]]]:
+) -> tuple[
+    list[list[tuple[int, int, str, str]]],
+    list[list[tuple[int, int, str, str]]]
+]:
     """TODO: add description
 
     Parameters
@@ -133,13 +143,17 @@ def diff_annotations(
 
     Returns
     -------
-    list[tuple[int, int, str, str]]
+    tuple[
+        list[tuple[int, int, str, str]],
+        list[tuple[int, int, str, str]]
+    ]
         Given all elements in either `ann1` or `ann2`, and considering the
         first and second sub-elements in each element (the two integers
         denoting `start` and `end` position indexes for each annotation),
-        returns a new set with all elements from either `ann1` or `ann2`
-        whose start and end positions do not match those of any other element
-        in the other set (`ann2` or `ann1` respectively).
+        returns two new lists, one for `ann1` and another for `ann2`,
+        respectively, such that each new list contains all elements in the
+        corresponding input argument whose start and end positions match none
+        of those for the elements in the other list.
 
     Examples
     --------
@@ -158,12 +172,19 @@ def diff_annotations(
     ann1_idxs = set([(start, end) for start, end, _, _ in ann1])
     ann2_idxs = set([(start, end) for start, end, _, _ in ann2])
     _intersection = ann1_idxs.intersection(ann2_idxs)
-    _union = ann1_idxs.union(ann2_idxs)
-    _diff = _union - _intersection
-    return list(map(
-        lambda x: True if (x[0], x[1]) in _diff else False,
-        ann1 + ann2
-    ))
+
+    ann1_diff = ann1_idxs - _intersection
+    ann2_diff = ann2_idxs - _intersection
+
+    is_uniq = lambda x: True \
+              if (x[0], x[1]) in ann1_diff \
+              or (x[0], x[1]) in ann2_diff \
+              else False
+
+    ann1_uniq = list(filter(is_uniq, ann1))
+    ann2_uniq = list(filter(is_uniq, ann2))
+
+    return ann1_uniq, ann2_uniq
 
 
 
@@ -186,12 +207,22 @@ def test_diff_annotations():
             diff_annotations(ann1, ann2)
 
 
-
+def test_f_score():
+    prfs = [
+        (1.00, 1.00, 1.0),
+        (1.00, 0.75, 1.0),
+        (1.00, 0.50, 1.0),
+        (1.00, 0.25, 1.0),
+    ]
+    for p, r, f in prfs:
+        print(p, r, f, f_score(p, r, f=f))
 
 
 
 
 if __name__ == '__main__':
+
+    test_f_score()
     test_diff_annotations()
 #     test_character_coverage()
 #
