@@ -112,3 +112,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# git sibling branches
+GLiNER/*
+ReFinED/*
+
+# local MacOS Finder aliases
+The 25 most common and important concepts in machine learning and their mathematical definitions are presented at once alias
