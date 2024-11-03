@@ -138,45 +138,45 @@ for rm, mv, mr in zip(relevance_masks, movie_preferences, movie_recommendations)
     print()
 ```
 
-    [5, 4, 6, 1, 7, 9, 2, 3, 8, 0]
-    [5, 4, 6, 1, 7, 9, 2, 3, 8, 0]
-    {5: 1, 4: 1, 6: 1, 1: 1, 7: 1, 9: 0, 2: 0, 3: 0, 8: 0, 0: 0}
+    [1, 4, 6, 9, 8, 2, 0, 3, 7, 5]
+    [1, 4, 6, 9, 8, 2, 0, 3, 7, 5]
+    {1: 1, 4: 1, 6: 1, 9: 1, 8: 1, 2: 0, 0: 0, 3: 0, 7: 0, 5: 0}
     
-    [6, 4, 1, 0, 3, 9, 8, 7, 2, 5]
-    [6, 4, 1, 0, 3, 9, 8, 7, 2, 5]
-    {6: 1, 4: 1, 1: 1, 0: 1, 3: 1, 9: 0, 8: 0, 7: 0, 2: 0, 5: 0}
+    [9, 6, 8, 4, 5, 1, 7, 3, 0, 2]
+    [9, 6, 8, 4, 5, 1, 7, 3, 0, 2]
+    {9: 1, 6: 1, 8: 1, 4: 1, 5: 1, 1: 0, 7: 0, 3: 0, 0: 0, 2: 0}
     
-    [2, 9, 6, 0, 8, 4, 1, 7, 5, 3]
-    [3, 9, 8, 4, 0, 1, 6, 5, 7, 2]
-    {2: 1, 9: 1, 6: 1, 0: 1, 8: 1, 4: 0, 1: 0, 7: 0, 5: 0, 3: 0}
+    [1, 0, 7, 6, 8, 9, 5, 4, 3, 2]
+    [1, 0, 7, 6, 8, 9, 5, 4, 3, 2]
+    {1: 1, 0: 1, 7: 1, 6: 1, 8: 1, 9: 0, 5: 0, 4: 0, 3: 0, 2: 0}
     
-    [3, 6, 7, 9, 2, 0, 1, 5, 4, 8]
-    [3, 6, 7, 9, 2, 0, 1, 5, 4, 8]
-    {3: 1, 6: 1, 7: 1, 9: 1, 2: 1, 0: 0, 1: 0, 5: 0, 4: 0, 8: 0}
+    [9, 4, 6, 2, 0, 3, 7, 1, 5, 8]
+    [9, 4, 6, 2, 0, 3, 7, 1, 5, 8]
+    {9: 1, 4: 1, 6: 1, 2: 1, 0: 1, 3: 0, 7: 0, 1: 0, 5: 0, 8: 0}
     
-    [5, 7, 9, 0, 6, 1, 8, 4, 3, 2]
-    [5, 7, 9, 0, 6, 1, 8, 4, 3, 2]
-    {5: 1, 7: 1, 9: 1, 0: 1, 6: 1, 1: 0, 8: 0, 4: 0, 3: 0, 2: 0}
+    [8, 9, 5, 3, 6, 2, 4, 0, 1, 7]
+    [7, 3, 9, 5, 8, 6, 2, 4, 0, 1]
+    {8: 1, 9: 1, 5: 1, 3: 1, 6: 1, 2: 0, 4: 0, 0: 0, 1: 0, 7: 0}
     
-    [1, 4, 0, 2, 9, 8, 5, 6, 3, 7]
-    [1, 4, 0, 2, 9, 8, 5, 6, 3, 7]
-    {1: 1, 4: 1, 0: 1, 2: 1, 9: 1, 8: 0, 5: 0, 6: 0, 3: 0, 7: 0}
+    [6, 4, 5, 0, 9, 1, 7, 2, 3, 8]
+    [6, 4, 5, 0, 9, 1, 7, 2, 3, 8]
+    {6: 1, 4: 1, 5: 1, 0: 1, 9: 1, 1: 0, 7: 0, 2: 0, 3: 0, 8: 0}
     
-    [0, 1, 6, 3, 2, 9, 8, 7, 5, 4]
-    [0, 1, 6, 3, 2, 9, 8, 7, 5, 4]
-    {0: 1, 1: 1, 6: 1, 3: 1, 2: 1, 9: 0, 8: 0, 7: 0, 5: 0, 4: 0}
+    [3, 9, 7, 6, 1, 5, 0, 8, 4, 2]
+    [3, 9, 7, 6, 1, 5, 0, 8, 4, 2]
+    {3: 1, 9: 1, 7: 1, 6: 1, 1: 1, 5: 0, 0: 0, 8: 0, 4: 0, 2: 0}
     
-    [1, 5, 9, 3, 2, 7, 0, 8, 6, 4]
-    [1, 5, 9, 3, 2, 7, 0, 8, 6, 4]
-    {1: 1, 5: 1, 9: 1, 3: 1, 2: 1, 7: 0, 0: 0, 8: 0, 6: 0, 4: 0}
+    [7, 4, 2, 5, 3, 0, 8, 6, 1, 9]
+    [7, 4, 2, 5, 3, 0, 8, 6, 1, 9]
+    {7: 1, 4: 1, 2: 1, 5: 1, 3: 1, 0: 0, 8: 0, 6: 0, 1: 0, 9: 0}
     
-    [8, 9, 5, 4, 2, 7, 1, 0, 3, 6]
-    [8, 9, 5, 4, 2, 7, 1, 0, 3, 6]
-    {8: 1, 9: 1, 5: 1, 4: 1, 2: 1, 7: 0, 1: 0, 0: 0, 3: 0, 6: 0}
+    [2, 9, 4, 0, 6, 7, 8, 5, 1, 3]
+    [5, 2, 0, 1, 8, 9, 3, 6, 4, 7]
+    {2: 1, 9: 1, 4: 1, 0: 1, 6: 1, 7: 0, 8: 0, 5: 0, 1: 0, 3: 0}
     
-    [9, 2, 3, 5, 0, 8, 1, 6, 4, 7]
-    [9, 2, 3, 5, 0, 8, 1, 6, 4, 7]
-    {9: 1, 2: 1, 3: 1, 5: 1, 0: 1, 8: 0, 1: 0, 6: 0, 4: 0, 7: 0}
+    [1, 5, 8, 3, 4, 0, 9, 2, 7, 6]
+    [1, 5, 8, 3, 4, 0, 9, 2, 7, 6]
+    {1: 1, 5: 1, 8: 1, 3: 1, 4: 1, 0: 0, 9: 0, 2: 0, 7: 0, 6: 0}
     
 
 
@@ -237,26 +237,23 @@ import pandas as pd
 
 
 ```python
-def cumulative_gain(relevances: pd.Series, k: int) -> float:
-    if not isinstance(relevances, pd.Series):
-        raise TypeError(type(relevances), pd.Series)
-    return relevances.head(k).sum()
+def normalized_discounted_cumulative_gain(df: pd.DataFrame, column_name: str, k: int) -> float:
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError(type(df), pd.DataFrame)
+    if not k:
+        k = df.shape[0]
 
-def discount_factor(iterable: pd.Series) -> Iterable[float]:
-    if not isinstance(iterable, pd.Series):
-        raise TypeError(type(iterable), pd.Series)
-    discount_factors = []
-    for idx, item in enumerate(iterable):
-        discount_factors.append(1 / log(1 + (idx + 1)))
-    return discount_factors
+    # --- dcg ---
+    _df = df.sort_values(column_name, ascending=True if column_name != "relevance" else False).head(k)
+    _df.discount_factor = [1 / log(1 + idx + 1) for idx in range(_df.shape[0])]
+    dcg = (_df.relevance / df.discount_factor).sum()
 
-def discounted_cumulative_gain(relevances: pd.Series, k: int) -> float:
-    if not isinstance(relevances, pd.Series):
-        raise TypeError(type(relevances), pd.Series)
-    discounted_cumulative_gain = 0
-    for idx, item in enumerate(relevances.head(k)):
-        discounted_cumulative_gain += (item / log(1 + (idx + 1)))
-    return discounted_cumulative_gain
+    # --- idcg ---
+    df.sort_values("relevance", ascending=False)
+    df.discount_factor = [1 / log(1 + idx + 1) for idx in range(df.shape[0])]
+    idcg = (df.head(k).relevance / df.head(k).discount_factor).sum()
+    
+    return dcg / idcg
 ```
 
 
@@ -287,6 +284,8 @@ for item, action in zip(event_items, event_actions):
     events.append(event)
 
 df = pd.DataFrame(events, columns=["item", "action", "relevance", "model_a", "model_b"])
+df["discount_factor"] = discount_factor(df.sort_values("relevance").relevance)
+
 df_model_a = df.copy().drop("model_b", axis=1).sort_values("model_a", ascending=True)
 df_model_b = df.copy().drop("model_a", axis=1).sort_values("model_b", ascending=True)
 df_ideal = df.copy().drop(["model_a", "model_b"], axis=1).sort_values("relevance", ascending=False)
@@ -294,7 +293,6 @@ df_ideal = df.copy().drop(["model_a", "model_b"], axis=1).sort_values("relevance
 
 
 ```python
-df_model_a["factor"] = discount_factor(df_model_a["item"])
 df_model_a.head()
 ```
 
@@ -323,49 +321,49 @@ df_model_a.head()
       <th>action</th>
       <th>relevance</th>
       <th>model_a</th>
-      <th>factor</th>
+      <th>discount_factor</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>12</th>
-      <td>3</td>
-      <td>Viewed</td>
-      <td>0</td>
+      <th>20</th>
+      <td>5</td>
+      <td>Ordered</td>
+      <td>4</td>
       <td>0.1</td>
-      <td>1.442695</td>
+      <td>0.323515</td>
     </tr>
     <tr>
-      <th>30</th>
+      <th>46</th>
       <td>7</td>
-      <td>Ordered</td>
-      <td>4</td>
-      <td>0.1</td>
-      <td>0.910239</td>
-    </tr>
-    <tr>
-      <th>21</th>
+      <td>AddedToCart</td>
       <td>3</td>
-      <td>Ordered</td>
-      <td>4</td>
       <td>0.1</td>
-      <td>0.721348</td>
+      <td>0.258318</td>
     </tr>
     <tr>
-      <th>40</th>
-      <td>7</td>
+      <th>47</th>
+      <td>6</td>
       <td>Ordered</td>
       <td>4</td>
       <td>0.1</td>
-      <td>0.621335</td>
+      <td>0.256949</td>
     </tr>
     <tr>
-      <th>19</th>
-      <td>3</td>
+      <th>32</th>
+      <td>5</td>
       <td>Ordered</td>
       <td>4</td>
       <td>0.1</td>
-      <td>0.558111</td>
+      <td>0.283578</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>9</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.1</td>
+      <td>0.253085</td>
     </tr>
   </tbody>
 </table>
@@ -375,7 +373,6 @@ df_model_a.head()
 
 
 ```python
-df_model_b["factor"] = discount_factor(df_model_b["item"])
 df_model_b.head()
 ```
 
@@ -404,49 +401,49 @@ df_model_b.head()
       <th>action</th>
       <th>relevance</th>
       <th>model_b</th>
-      <th>factor</th>
+      <th>discount_factor</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>39</th>
-      <td>8</td>
-      <td>Viewed</td>
-      <td>0</td>
-      <td>0.00</td>
-      <td>1.442695</td>
+      <th>21</th>
+      <td>7</td>
+      <td>Clicked</td>
+      <td>1</td>
+      <td>0.01</td>
+      <td>0.318929</td>
     </tr>
     <tr>
-      <th>87</th>
-      <td>7</td>
-      <td>Viewed</td>
-      <td>0</td>
-      <td>0.01</td>
-      <td>0.910239</td>
+      <th>77</th>
+      <td>2</td>
+      <td>Shared</td>
+      <td>2</td>
+      <td>0.03</td>
+      <td>0.228862</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>8</td>
+      <td>AddedToCart</td>
+      <td>3</td>
+      <td>0.03</td>
+      <td>0.234594</td>
     </tr>
     <tr>
       <th>26</th>
-      <td>0</td>
+      <td>3</td>
       <td>AddedToCart</td>
       <td>3</td>
-      <td>0.02</td>
-      <td>0.721348</td>
+      <td>0.05</td>
+      <td>0.300102</td>
     </tr>
     <tr>
-      <th>79</th>
+      <th>24</th>
       <td>8</td>
-      <td>Clicked</td>
-      <td>1</td>
-      <td>0.04</td>
-      <td>0.621335</td>
-    </tr>
-    <tr>
-      <th>37</th>
-      <td>8</td>
-      <td>Clicked</td>
-      <td>1</td>
-      <td>0.04</td>
-      <td>0.558111</td>
+      <td>Viewed</td>
+      <td>0</td>
+      <td>0.05</td>
+      <td>0.306928</td>
     </tr>
   </tbody>
 </table>
@@ -456,30 +453,20 @@ df_model_b.head()
 
 
 ```python
-print(cumulative_gain(df_model_a.relevance, 10000), cumulative_gain(df_model_b.relevance, 10000), cumulative_gain(df_ideal.relevance, 10000))
-print(cumulative_gain(df_model_a.relevance, 10), cumulative_gain(df_model_b.relevance, 10), cumulative_gain(df_ideal.relevance, 10))
-```
-
-    189 189 189
-    36 12 40
-
-
-
-```python
 print(
-    discounted_cumulative_gain(df_model_a.relevance, 10000),
-    discounted_cumulative_gain(df_model_b.relevance, 10000),
-    discounted_cumulative_gain(df_ideal.relevance, 10000)
+    normalized_discounted_cumulative_gain(df, "model_a", 10000),
+    normalized_discounted_cumulative_gain(df, "model_b", 10000),
+    normalized_discounted_cumulative_gain(df, "relevance", 10000)
 )
 print(
-    discounted_cumulative_gain(df_model_a.relevance, 10),
-    discounted_cumulative_gain(df_model_b.relevance, 10),
-    discounted_cumulative_gain(df_ideal.relevance, 10)
+    normalized_discounted_cumulative_gain(df, "model_a", 10),
+    normalized_discounted_cumulative_gain(df, "model_b", 10),
+    normalized_discounted_cumulative_gain(df, "relevance", 10)
 )
 ```
 
-    64.8328519902154 52.331488864738986 69.86372053041443
-    20.449101936623336 6.526924131877437 26.21988210017919
+    1.0 1.0 1.0
+    3.707535015463046 2.488451270660452 3.9773980299904035
 
 
 
@@ -512,43 +499,49 @@ df_ideal.head()
       <th>item</th>
       <th>action</th>
       <th>relevance</th>
+      <th>discount_factor</th>
       <th>factor</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>19</th>
-      <td>3</td>
+      <th>50</th>
+      <td>9</td>
       <td>Ordered</td>
       <td>4</td>
+      <td>0.253085</td>
       <td>1.442695</td>
     </tr>
     <tr>
-      <th>68</th>
-      <td>0</td>
+      <th>32</th>
+      <td>5</td>
       <td>Ordered</td>
       <td>4</td>
+      <td>0.283578</td>
       <td>0.910239</td>
     </tr>
     <tr>
-      <th>81</th>
-      <td>8</td>
+      <th>22</th>
+      <td>5</td>
       <td>Ordered</td>
       <td>4</td>
+      <td>0.314658</td>
       <td>0.721348</td>
     </tr>
     <tr>
-      <th>83</th>
-      <td>4</td>
-      <td>Ordered</td>
-      <td>4</td>
-      <td>0.621335</td>
-    </tr>
-    <tr>
-      <th>13</th>
+      <th>23</th>
       <td>1</td>
       <td>Ordered</td>
       <td>4</td>
+      <td>0.310667</td>
+      <td>0.621335</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>8</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.223919</td>
       <td>0.558111</td>
     </tr>
   </tbody>
