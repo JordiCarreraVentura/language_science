@@ -52,9 +52,53 @@ $$AP(D_i) = \sum\limits_{k = 1}^{K} \text{Precision@}k(D_i) \times RelevanceMask
 
 $$MAP(D) = \frac{\sum\limits_{i = 1}^{|D|} AP(D_i)}{|D|}$$
 
+### Normalized Discounted Cumulative Gain
+
+[Source](https://towardsdatascience.com/normalized-discounted-cumulative-gain-ndcg-the-ultimate-ranking-metric-437b03529f75), [Back to top](#ranking-metrics)
+
+#### Cumulative Gain (CG)
+
+> The **.cumulative gain** is the sum of the relevance scores of items in the list.
+
+$$CG = \sum\limits_{i = 1}^{K} \text{relevance}(K_i)$$
+
+> If you’re computing NDCG@10, CG@10 will be 12 for both lists.
+> 
+> If you’re computing NDCG@5, CG@5 for Model A is 7, and for Model B is 10
+
+#### Discount Factor (DF)
+
+> The **discount factor** involves using a logarithmic discounting factor to perform a weighted sum of the relevance scores of items in the list. The discounting factor is weighted based on the item’s position in the list.
+
+It is based on the same intuition as the reciprocal rank but it is smoothed by the use of the logarithm: for the item in the 10th rank, instead of computing the score as $1 / 10$ (the reciprocal rank), we calculate it as $1 / log(10)$, which means that the denominator is smaller and the result, therfore, higher. So, while we still penalize higher ranks, we are not penalizing them as much as the reciprocal rank, probably reflecting the intuition that _there is not a single correct answer_, as well as smoothing out/squeezing together potential anomalies in the scoring function.
+
+$$DF = \frac{1}{log_2(1 + i)}$$
+
+
+#### Normalization constant
+
+> We want to normalize the model’s DCG by dividing it by the DCG obtained by an ideal ranker.
+> 
+> An ideal ranks the items in descending order of relevance scores.
+
+
+#### Normalized Discounted Cumulative Gain
+
+$\text{Candidate Discounted Cumulative Gain} = \text{DCG over relevance scores calculated after sorting by either model's score, and selecting the top }k$
+
+$$DCG_k = \sum\limits_{i = 1}^{k} \frac{relevance(Y_i)}{log_2 (1 + i)}$$
+
+$\text{Ideal Discounted Cumulative Gain} = \text{DCG calculated after sorting by relevance instead of either model's score}$
+
+$$DCG_k = \sum\limits_{i = 1}^{k} \frac{relevance_i}{log_2 (1 + i)}$$
+
+$$NDCG = \frac{\text{Candidate Discounted Cumulative Gain}}{\text{Ideal Discounted Cumulative Gain}}$$
+
 # Examples
 
 [Back to top](#ranking-metrics)
+
+### MAP @ k
 
 
 ```python
@@ -94,45 +138,45 @@ for rm, mv, mr in zip(relevance_masks, movie_preferences, movie_recommendations)
     print()
 ```
 
-    [8, 0, 5, 7, 4, 9, 1, 2, 3, 6]
-    [8, 0, 5, 7, 4, 9, 1, 2, 3, 6]
-    {8: 1, 0: 1, 5: 1, 7: 1, 4: 1, 9: 0, 1: 0, 2: 0, 3: 0, 6: 0}
+    [5, 4, 6, 1, 7, 9, 2, 3, 8, 0]
+    [5, 4, 6, 1, 7, 9, 2, 3, 8, 0]
+    {5: 1, 4: 1, 6: 1, 1: 1, 7: 1, 9: 0, 2: 0, 3: 0, 8: 0, 0: 0}
     
-    [5, 3, 0, 6, 9, 2, 4, 7, 8, 1]
-    [5, 3, 0, 6, 9, 2, 4, 7, 8, 1]
-    {5: 1, 3: 1, 0: 1, 6: 1, 9: 1, 2: 0, 4: 0, 7: 0, 8: 0, 1: 0}
+    [6, 4, 1, 0, 3, 9, 8, 7, 2, 5]
+    [6, 4, 1, 0, 3, 9, 8, 7, 2, 5]
+    {6: 1, 4: 1, 1: 1, 0: 1, 3: 1, 9: 0, 8: 0, 7: 0, 2: 0, 5: 0}
     
-    [9, 0, 3, 1, 4, 8, 7, 2, 6, 5]
-    [9, 0, 3, 1, 4, 8, 7, 2, 6, 5]
-    {9: 1, 0: 1, 3: 1, 1: 1, 4: 1, 8: 0, 7: 0, 2: 0, 6: 0, 5: 0}
+    [2, 9, 6, 0, 8, 4, 1, 7, 5, 3]
+    [3, 9, 8, 4, 0, 1, 6, 5, 7, 2]
+    {2: 1, 9: 1, 6: 1, 0: 1, 8: 1, 4: 0, 1: 0, 7: 0, 5: 0, 3: 0}
     
-    [1, 0, 9, 5, 8, 6, 2, 7, 3, 4]
-    [1, 0, 9, 5, 8, 6, 2, 7, 3, 4]
-    {1: 1, 0: 1, 9: 1, 5: 1, 8: 1, 6: 0, 2: 0, 7: 0, 3: 0, 4: 0}
+    [3, 6, 7, 9, 2, 0, 1, 5, 4, 8]
+    [3, 6, 7, 9, 2, 0, 1, 5, 4, 8]
+    {3: 1, 6: 1, 7: 1, 9: 1, 2: 1, 0: 0, 1: 0, 5: 0, 4: 0, 8: 0}
     
-    [0, 7, 9, 4, 3, 1, 6, 2, 8, 5]
-    [0, 7, 9, 4, 3, 1, 6, 2, 8, 5]
-    {0: 1, 7: 1, 9: 1, 4: 1, 3: 1, 1: 0, 6: 0, 2: 0, 8: 0, 5: 0}
+    [5, 7, 9, 0, 6, 1, 8, 4, 3, 2]
+    [5, 7, 9, 0, 6, 1, 8, 4, 3, 2]
+    {5: 1, 7: 1, 9: 1, 0: 1, 6: 1, 1: 0, 8: 0, 4: 0, 3: 0, 2: 0}
     
-    [9, 6, 7, 0, 1, 8, 2, 5, 3, 4]
-    [9, 6, 7, 0, 1, 8, 2, 5, 3, 4]
-    {9: 1, 6: 1, 7: 1, 0: 1, 1: 1, 8: 0, 2: 0, 5: 0, 3: 0, 4: 0}
+    [1, 4, 0, 2, 9, 8, 5, 6, 3, 7]
+    [1, 4, 0, 2, 9, 8, 5, 6, 3, 7]
+    {1: 1, 4: 1, 0: 1, 2: 1, 9: 1, 8: 0, 5: 0, 6: 0, 3: 0, 7: 0}
     
-    [0, 8, 2, 6, 1, 5, 4, 3, 9, 7]
-    [0, 8, 2, 6, 1, 5, 4, 3, 9, 7]
-    {0: 1, 8: 1, 2: 1, 6: 1, 1: 1, 5: 0, 4: 0, 3: 0, 9: 0, 7: 0}
+    [0, 1, 6, 3, 2, 9, 8, 7, 5, 4]
+    [0, 1, 6, 3, 2, 9, 8, 7, 5, 4]
+    {0: 1, 1: 1, 6: 1, 3: 1, 2: 1, 9: 0, 8: 0, 7: 0, 5: 0, 4: 0}
     
-    [8, 9, 0, 7, 3, 1, 2, 6, 5, 4]
-    [8, 9, 0, 7, 3, 1, 2, 6, 5, 4]
-    {8: 1, 9: 1, 0: 1, 7: 1, 3: 1, 1: 0, 2: 0, 6: 0, 5: 0, 4: 0}
+    [1, 5, 9, 3, 2, 7, 0, 8, 6, 4]
+    [1, 5, 9, 3, 2, 7, 0, 8, 6, 4]
+    {1: 1, 5: 1, 9: 1, 3: 1, 2: 1, 7: 0, 0: 0, 8: 0, 6: 0, 4: 0}
     
-    [1, 3, 8, 4, 5, 6, 9, 7, 2, 0]
-    [1, 3, 8, 4, 5, 6, 9, 7, 2, 0]
-    {1: 1, 3: 1, 8: 1, 4: 1, 5: 1, 6: 0, 9: 0, 7: 0, 2: 0, 0: 0}
+    [8, 9, 5, 4, 2, 7, 1, 0, 3, 6]
+    [8, 9, 5, 4, 2, 7, 1, 0, 3, 6]
+    {8: 1, 9: 1, 5: 1, 4: 1, 2: 1, 7: 0, 1: 0, 0: 0, 3: 0, 6: 0}
     
-    [2, 6, 0, 5, 1, 7, 4, 9, 3, 8]
-    [2, 6, 0, 5, 1, 7, 4, 9, 3, 8]
-    {2: 1, 6: 1, 0: 1, 5: 1, 1: 1, 7: 0, 4: 0, 9: 0, 3: 0, 8: 0}
+    [9, 2, 3, 5, 0, 8, 1, 6, 4, 7]
+    [9, 2, 3, 5, 0, 8, 1, 6, 4, 7]
+    {9: 1, 2: 1, 3: 1, 5: 1, 0: 1, 8: 0, 1: 0, 6: 0, 4: 0, 7: 0}
     
 
 
@@ -175,9 +219,342 @@ print(recall_at_k(movie_preferences, movie_recommendations, 4))
 print(recall_at_k(movie_preferences, movie_recommendations, 4, relevance_masks))
 ```
 
-    1.0
-    1.0
-    0.8
+    0.925
+    0.925
+    0.74
+
+
+#### Normalized Discounted Cumulative Gain
+
+
+```python
+from math import log
+import random
+from typing import Iterable, Union
+
+import pandas as pd
+```
+
+
+```python
+def cumulative_gain(relevances: pd.Series, k: int) -> float:
+    if not isinstance(relevances, pd.Series):
+        raise TypeError(type(relevances), pd.Series)
+    return relevances.head(k).sum()
+
+def discount_factor(iterable: pd.Series) -> Iterable[float]:
+    if not isinstance(iterable, pd.Series):
+        raise TypeError(type(iterable), pd.Series)
+    discount_factors = []
+    for idx, item in enumerate(iterable):
+        discount_factors.append(1 / log(1 + (idx + 1)))
+    return discount_factors
+
+def discounted_cumulative_gain(relevances: pd.Series, k: int) -> float:
+    if not isinstance(relevances, pd.Series):
+        raise TypeError(type(relevances), pd.Series)
+    discounted_cumulative_gain = 0
+    for idx, item in enumerate(relevances.head(k)):
+        discounted_cumulative_gain += (item / log(1 + (idx + 1)))
+    return discounted_cumulative_gain
+```
+
+
+```python
+relevance_by_action = {
+    "Viewed": 0,
+    "Clicked": 1,
+    "Shared": 2,
+    "AddedToCart": 3,
+    "Ordered": 4,
+}
+
+actions = list(relevance_by_action.keys())
+item_ids = list(range(10))
+
+event_items = [random.choice(item_ids) for _ in range(100)]
+event_actions = [random.choice(actions) for _ in event_items]
+
+events = []
+for item, action in zip(event_items, event_actions):
+    event = (
+        item,
+        action,
+        relevance_by_action[action],
+        round(((5 / (relevance_by_action[action] + 1)) / 10) if random.random() >= 0.2 else random.uniform(0, 1.0), 2),
+        round(random.uniform(0, 1.0), 2)
+    )
+    events.append(event)
+
+df = pd.DataFrame(events, columns=["item", "action", "relevance", "model_a", "model_b"])
+df_model_a = df.copy().drop("model_b", axis=1).sort_values("model_a", ascending=True)
+df_model_b = df.copy().drop("model_a", axis=1).sort_values("model_b", ascending=True)
+df_ideal = df.copy().drop(["model_a", "model_b"], axis=1).sort_values("relevance", ascending=False)
+```
+
+
+```python
+df_model_a["factor"] = discount_factor(df_model_a["item"])
+df_model_a.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>item</th>
+      <th>action</th>
+      <th>relevance</th>
+      <th>model_a</th>
+      <th>factor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12</th>
+      <td>3</td>
+      <td>Viewed</td>
+      <td>0</td>
+      <td>0.1</td>
+      <td>1.442695</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>7</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.1</td>
+      <td>0.910239</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>3</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.1</td>
+      <td>0.721348</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>7</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.1</td>
+      <td>0.621335</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>3</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.1</td>
+      <td>0.558111</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df_model_b["factor"] = discount_factor(df_model_b["item"])
+df_model_b.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>item</th>
+      <th>action</th>
+      <th>relevance</th>
+      <th>model_b</th>
+      <th>factor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>39</th>
+      <td>8</td>
+      <td>Viewed</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>1.442695</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>7</td>
+      <td>Viewed</td>
+      <td>0</td>
+      <td>0.01</td>
+      <td>0.910239</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>0</td>
+      <td>AddedToCart</td>
+      <td>3</td>
+      <td>0.02</td>
+      <td>0.721348</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>8</td>
+      <td>Clicked</td>
+      <td>1</td>
+      <td>0.04</td>
+      <td>0.621335</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>8</td>
+      <td>Clicked</td>
+      <td>1</td>
+      <td>0.04</td>
+      <td>0.558111</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+print(cumulative_gain(df_model_a.relevance, 10000), cumulative_gain(df_model_b.relevance, 10000), cumulative_gain(df_ideal.relevance, 10000))
+print(cumulative_gain(df_model_a.relevance, 10), cumulative_gain(df_model_b.relevance, 10), cumulative_gain(df_ideal.relevance, 10))
+```
+
+    189 189 189
+    36 12 40
+
+
+
+```python
+print(
+    discounted_cumulative_gain(df_model_a.relevance, 10000),
+    discounted_cumulative_gain(df_model_b.relevance, 10000),
+    discounted_cumulative_gain(df_ideal.relevance, 10000)
+)
+print(
+    discounted_cumulative_gain(df_model_a.relevance, 10),
+    discounted_cumulative_gain(df_model_b.relevance, 10),
+    discounted_cumulative_gain(df_ideal.relevance, 10)
+)
+```
+
+    64.8328519902154 52.331488864738986 69.86372053041443
+    20.449101936623336 6.526924131877437 26.21988210017919
+
+
+
+```python
+df_ideal["factor"] = discount_factor(df_ideal["item"])
+df_ideal.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>item</th>
+      <th>action</th>
+      <th>relevance</th>
+      <th>factor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19</th>
+      <td>3</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>1.442695</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>0</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.910239</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>8</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.721348</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>4</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.621335</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>1</td>
+      <td>Ordered</td>
+      <td>4</td>
+      <td>0.558111</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 
 
 # References
