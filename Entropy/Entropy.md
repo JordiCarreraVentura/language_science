@@ -64,7 +64,7 @@ for val in [0.9, 0.1, 0.01, 0.001]:
 
 <p style="margin-left: 30px;">In this respect, the logarithm provides a straightforward interpretation in terms of information theory. Refer to appendix <i>Information-theoretical Interpretation of the Logarithm</i> for an explanation.</p>
 
-5. _Why do we multiply the logarithm of $p_i$ times $p_i$ again?_
+4. _Why do we multiply the logarithm of $p_i$ times $p_i$ again?_
 
    Because its innermost usage will have transformed the ratio into a measure of information which _is based_ on the original ratio (actually, information $I$ is defined precisely as $-log(p_i)$) but is **no longer reflective of its overall weight** on the original dataset. Hence, we can have classes with a very low ratio and, as a result, extremely high information, yet they are so rare that their total contribution to the entropy could still be low. The highest entropies will normally be measured over ratios that are low yet still significant (closer to the random baseline, or $1 / |C|$).
     For example, 
