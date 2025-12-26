@@ -116,6 +116,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# git sibling branches
+# git sibling branches
 GLiNER/*
 ReFinED/*
+
+# Mac OS office suite file formats
+*/*.numbers

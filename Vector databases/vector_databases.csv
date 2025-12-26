@@ -1,0 +1,12 @@
+Feature / Dimension;Weaviate;Milvus;Pinecone;Qdrant;Chroma
+Vector similarity search;TRUE;TRUE;TRUE;TRUE;TRUE
+API / SDK available;TRUE;TRUE;TRUE;TRUE;TRUE
+Open-source;TRUE;TRUE;FALSE;TRUE;TRUE
+Serverless / managed offering;TRUE;TRUE;TRUE;FALSE;FALSE
+Supports horizontal scaling / distributed mode;TRUE;TRUE;FALSE;TRUE;FALSE
+Multiple index types supported;TRUE;TRUE;FALSE;TRUE;FALSE
+Hybrid search (keyword + vector);TRUE;FALSE;TRUE;FALSE;FALSE
+Real-time upsert indexing;FALSE;FALSE;TRUE;FALSE;FALSE
+Built-in multimodal support (text/images etc.);TRUE;FALSE;FALSE;FALSE;FALSE
+GraphQL native query support;TRUE;FALSE;FALSE;FALSE;FALSE
+Embedded / in-process mode;FALSE;FALSE;FALSE;FALSE;TRUE
