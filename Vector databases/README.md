@@ -1,12 +1,10 @@
 # Vector databases
 
---
-
 # Comparative analysis
 
 ##### Weaviate, Milvus, Pinecone, Qdrant, and Chroma
 
-### Conclusions
+### Conclusions
 
 1. **In production settings, use Weviate by default**, as it is the most fully-featured solution by a significant margin.
 	1. **Weaviate** is the most complete solution _**and**_
