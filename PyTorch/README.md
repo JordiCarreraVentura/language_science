@@ -42,4 +42,18 @@ $ make jupyter
 | 6 | `torch.rand(rows: int, columns: int)` | Python, PyTorch, (tutorial, how-to), (tensor, initialization, (with, random, float, numbers, (from, statistics, probability, distribution, uniform, distribution))) | Like `empty`, but initializing with random decimal numbers sampled from a **uniform distribution** instead. |
 | 7 | `torch.rand(rows: int, columns: int)` | Python, PyTorch, (tutorial, how-to), (tensor, initialization, (with, random, float, numbers, (from, statistics, probability, distribution, normal distribution))) | Like `empty`, but initializing with random decimal numbers sampled from a **normal distribution** instead. |
 
+### 2. Arithmetic operations
 
+- [Jupyter notebook](2_Arithmetic_operations.ipynb)
+- [Section in the original post](https://www.intoai.pub/p/pytorch-essentials#§arithmetic-operations-on-tensors)
+
+| No. | Tags | Code |
+| --- | --- | --- |
+| 1 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (add, addition)), (math, mathematics) | `x + y` |
+| 2 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (subtract)), (math, mathematics) | `x - y` |
+| 3 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (multiplication, product)), (math, mathematics) | `x * y` |
+| 4 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (fraction, division)), (math, mathematics) | `x / y` |
+| 5 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (add, addition)), (vs, memory usage), (math, mathematics) | `x.add_(y)` |
+| 6 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (subtract)), (vs, memory usage), (math, mathematics) | `x.sub_(y)` |
+| 7 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (multiplication, product)), (vs, memory usage), (math, mathematics) | `x.mul_(y)` |
+| 8 | Python, PyTorch, (tutorial, how-to), (arithmetic, operations, vector arithmetic, (fraction, division)), (vs, memory usage), (math, mathematics) | `x.div_(y)` |
